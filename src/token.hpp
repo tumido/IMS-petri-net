@@ -12,7 +12,7 @@
 class Token : public Component {
 private:
 public:
-
+  Place *Location = NULL;
 };
 
 #endif // __TOKEN_HPP__
