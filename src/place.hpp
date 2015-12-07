@@ -11,6 +11,7 @@
 class Place : public Component {
 private:
 public:
+  Place(std::string id) : Component(id) { };
 };
 
 #endif // __PLACE_HPP__

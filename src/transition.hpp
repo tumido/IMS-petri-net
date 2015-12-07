@@ -10,9 +10,15 @@
 
 #include <string>
 
+enum class TimeType { Constant, Generated };
+
 class Transition : public Component {
 private:
 public:
+  Transition(std::string id) : Component(id) { };
+  int Probability;
+  int Priority;
+  int Time;
 };
 
 #endif // __TRANSITION_HPP__

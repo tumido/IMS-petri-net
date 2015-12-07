@@ -13,6 +13,7 @@ class Token : public Component {
 private:
 public:
   Place *Location = NULL;
+  void Move(Place *newPlace);
 };
 
 #endif // __TOKEN_HPP__

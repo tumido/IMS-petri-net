@@ -7,10 +7,18 @@
 #define __CONNECTION_HPP__
 
 #include "component.hpp"
+#include "place.hpp"
+#include "transition.hpp"
+
+enum class ConnectionType {FromPlace, ToPlace};
 
 class Connection : public Component {
 private:
 public:
+  Connection(std::string id) : Component(id) { };
+  Transition *Tr = NULL;
+  Place *Pl = NULL;
+  ConnectionType Type;
 };
 
 #endif // __CONNECTION_HPP__

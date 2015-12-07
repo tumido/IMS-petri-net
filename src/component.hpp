@@ -10,6 +10,7 @@
 
 class Component {
 public:
+  Component(std::string Id);
   std::string Id;
   int Capacity = 1;
 };
