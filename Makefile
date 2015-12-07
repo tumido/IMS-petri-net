@@ -20,6 +20,7 @@ run:
 # Phony #
 #########
 .PHONY: clean pack
+.SILENT: clean pack
 clean:
 	-rm $(NAME)
 	-rm $(ARCHIVE_NAME).tar.gz
