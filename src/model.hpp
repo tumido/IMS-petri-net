@@ -37,6 +37,7 @@ public:
   void AddTransition(string id, int prob);
   void AddTransitionP(string id, int priority);
   void AddTransition(string id, int time, TransType type);
+  vector<Token*> GetTokens() { return this->tokens; };
 };
 
 #endif // __MODEL_HPP__

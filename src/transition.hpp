@@ -18,6 +18,7 @@ public:
   Transition(std::string id) : Component(id) { };
   int Value;
   TransType Type;
+  bool IsFeasible();
 };
 
 #endif // __TRANSITION_HPP__
