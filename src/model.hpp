@@ -34,7 +34,9 @@ public:
   void AddPlace(string id);
   void AddPlace(string id, int capacity);
   void AddToken(string id, string pId);
-  void AddTransition(string id, int prob, int priority, int timec, TransType type);
+  void AddTransition(string id, int prob);
+  void AddTransitionP(string id, int priority);
+  void AddTransition(string id, int time, TransType type);
 };
 
 #endif // __MODEL_HPP__

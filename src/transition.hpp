@@ -10,15 +10,13 @@
 
 #include <string>
 
-enum class TransType { TimeConstant, TimeGenerated, Priority };
+enum class TransType { TimeConstant, TimeGenerated, Priority, Probability };
 
 class Transition : public Component {
 private:
 public:
   Transition(std::string id) : Component(id) { };
-  int Probability;
-  int Priority;
-  int Time;
+  int Value;
   TransType Type;
 };
 

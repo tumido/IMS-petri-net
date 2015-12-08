@@ -6,20 +6,6 @@
 
 #include "model.hpp"
 
-bool Model::existsConnection(string id)
-{
-  return this->findConnection(id) != NULL;
-}
-
-Connection* Model::findConnection(string id)
-{
-  for (unsigned int i = 0; i < this->connections.size(); i++) {
-    if (this->connections[i]->Id == id)
-      return this->connections[i];
-  }
-  return NULL;
-}
-
 bool Model::existsPlace(string id)
 {
   return this->findPlace(id) != NULL;
@@ -54,10 +40,17 @@ void Model::AddConnection(string pId, string tId, ConnectionType type)
   auto trans = this->findTransition(tId);
 
   if (place != NULL && trans != NULL) {
-    auto conn = new Connection("#yolo");
+    auto conn = new Connection();
     conn->Tr = trans;
     conn->Pl = place;
     conn->Type = type;
+    if (type == ConnectionType::FromPlace) {
+      trans->Inputs.push_back(conn);
+      place->Outputs.push_back(conn);
+    } else {
+      trans->Outputs.push_back(conn);
+      place->Inputs.push_back(conn);
+    }
     this->connections.push_back(conn);
   }
 }
@@ -88,13 +81,31 @@ void Model::AddToken(string id, string pId)
   }
 }
 
-void Model::AddTransition(string id, int prob, int priority, int timec, TransType type)
+void Model::AddTransition(string id, int prob)
 {
   if (!this->existsTransition(id)) {
     auto tran = new Transition(id);
-    tran->Probability = prob;
-    tran->Priority = priority;
-    tran->Time = timec;
+    tran->Value = prob;
+    tran->Type = TransType::Probability;
+    this->transitions.push_back(tran);
+  }
+}
+
+void Model::AddTransitionP(string id, int priority)
+{
+  if (!this->existsTransition(id)) {
+    auto tran = new Transition(id);
+    tran->Value = priority;
+    tran->Type = TransType::Priority;
+    this->transitions.push_back(tran);
+  }
+}
+
+void Model::AddTransition(string id, int timec, TransType type)
+{
+  if (!this->existsTransition(id)) {
+    auto tran = new Transition(id);
+    tran->Value = timec;
     tran->Type = type;
     this->transitions.push_back(tran);
   }

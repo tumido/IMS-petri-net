@@ -10,15 +10,18 @@
 #include "place.hpp"
 #include "transition.hpp"
 
+#include <vector>
+
 enum class ConnectionType {FromPlace, ToPlace};
 
-class Connection : public Component {
+class Connection {
 private:
 public:
-  Connection(std::string id) : Component(id) { };
   Transition *Tr = NULL;
   Place *Pl = NULL;
   ConnectionType Type;
+  std::vector<Connection*> Inputs;
+  std::vector<Connection*> Outputs;
 };
 
 #endif // __CONNECTION_HPP__
