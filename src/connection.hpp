@@ -10,8 +10,6 @@
 #include "place.hpp"
 #include "transition.hpp"
 
-#include <vector>
-
 enum class ConnectionType {FromPlace, ToPlace};
 
 class Connection {
@@ -20,8 +18,6 @@ public:
   Transition *Tr = NULL;
   Place *Pl = NULL;
   ConnectionType Type;
-  std::vector<Connection*> Inputs;
-  std::vector<Connection*> Outputs;
 };
 
 #endif // __CONNECTION_HPP__

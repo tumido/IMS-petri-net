@@ -8,6 +8,8 @@
 
 #include "component.hpp"
 
+#include <string>
+
 class Place : public Component {
 private:
   int freespots;
