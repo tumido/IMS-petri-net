@@ -11,7 +11,13 @@
  *
  * @param newPlace New destination of token
  */
-void Token::Move(Place *newPlace)
+bool Token::Move(Place *newPlace)
 {
-  this->Location = newPlace;
+  if (this->Location != NULL)
+    this->Location->LeavePlace();
+  if (newPlace->EnterPlace()) {
+    this->Location = newPlace;
+    return true;
+  } else
+    return false;
 }

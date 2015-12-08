@@ -12,8 +12,9 @@
 class Token : public Component {
 private:
 public:
+  Token(std::string id) : Component(id) { };
   Place *Location = NULL;
-  void Move(Place *newPlace);
+  bool Move(Place *newPlace);
 };
 
 #endif // __TOKEN_HPP__

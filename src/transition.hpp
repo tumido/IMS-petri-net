@@ -10,7 +10,7 @@
 
 #include <string>
 
-enum class TimeType { Constant, Generated };
+enum class TransType { TimeConstant, TimeGenerated, Priority };
 
 class Transition : public Component {
 private:
@@ -19,6 +19,7 @@ public:
   int Probability;
   int Priority;
   int Time;
+  TransType Type;
 };
 
 #endif // __TRANSITION_HPP__
