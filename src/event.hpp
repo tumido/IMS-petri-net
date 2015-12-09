@@ -16,7 +16,7 @@ private:
     Transition * transition;
     std::vector<Token *> tokens;
 public:
-    Event(double , Transition * );
+    Event(double , Transition * , std::vector<Token *>);
     ~Event();
     double GetTime() const { return this->time; };
     Transition * GetTransitionPtr();
@@ -25,7 +25,7 @@ public:
     bool operator < (const Event& ref) const
     {
         return (this->time < ref.time);
-    }
+    };
 };
 
 #endif // __EVENT_HPP__

@@ -5,7 +5,8 @@
  */
 #include "event.hpp"
 
-Event::Event(double t, Transition * trans): time(t), transition(trans) {
+Event::Event(double t, Transition * trans, std::vector<Token *> tok):
+    time(t), transition(trans), tokens(tok) {
     //ctor
 }
 

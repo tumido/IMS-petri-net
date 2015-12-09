@@ -15,6 +15,7 @@ public:
   Token(std::string id) : Component(id) { };
   Place *Location = NULL;
   bool Move(Place *newPlace);
+  void SetPlanned();
 };
 
 #endif // __TOKEN_HPP__

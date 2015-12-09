@@ -15,7 +15,6 @@ class Component {
 public:
   Component(std::string Id);
   std::string Id;
-  int Capacity = 1;
   std::vector<Connection*> Inputs;
   std::vector<Connection*> Outputs;
 };

@@ -1,12 +1,17 @@
 /**
  * @file transition.hpp
- * @author Albert Uchytil
+ * @author Albert Uchytil, Tomas Coufal
  * @brief Data structure for transition
  */
 #ifndef __TRANSITION_HPP__
 #define __TRANSITION_HPP__
 
+class Event;
+class Connection;
+
 #include "component.hpp"
+#include "token.hpp"
+#include "time_exp.hpp"
 
 #include <string>
 
@@ -19,6 +24,7 @@ public:
   int Value;
   TransType Type;
   bool IsFeasible();
+  Event * CreateEvent(double simtime);
 };
 
 #endif // __TRANSITION_HPP__

@@ -1,6 +1,6 @@
 /**
  * @file simulation.hpp
- * @author Albert Uchytil
+ * @author Albert Uchytil, Tomas Coufal
  * @brief Class which takes care of the simulation
  */
 #ifndef __SIMULATION_HPP__
@@ -23,7 +23,7 @@ public:
     ~Simulation();
     void Start();
     void SetEndtime(double);
-    void PlanEvents();
+    void PlanEvent();
     double GetSimtime() { return simtime; };/*
     Model * GetModelPtr() { return model; };
     Calendar * GetCalendarPtr() { return calendar; };*/

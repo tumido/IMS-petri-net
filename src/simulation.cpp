@@ -18,7 +18,7 @@ Simulation::~Simulation() {
 void Simulation::Start() {
     this->simtime = 0;
     //naplanovat
-    while (!calendar->Empty() && (this->simtime < this->endtine)) {
+    while (!calendar->Empty() && (this->simtime < this->endtime)) {
         Event * e = calendar->GetEvent();
         this->simtime = e->GetTime();
         //provest
@@ -30,22 +30,16 @@ void Simulation::SetEndtime(double t) {
 }
 
 void Simulation::PlanEvent() {
-    std::vector<Token*>::iterator token;
-    std::vector<Token*> tokens = this->model->GetTokens();
+    std::vector<Transition*>::iterator trans_it;
+    std::vector<Transition*> trans = this->model->GetTransitions();
+    Event* event;
 
-    std::vector<Connection*>::iterator out_iter;
-    std::vector<Connection*> out;
-
-    // get all tokens
-    for(token = tokens.begin(); token != tokens.end(); token++) {
-
-        // iterate through its available transitions
-        out = token->Location->Outputs;
-        for(out_iter = out.begin(); out_iter != out.end(); out_iter++) {
-
-            if (out->Transition->IsFeasible()) {
-                // naplanovat
-            }
+    // get all transitions
+    for(trans_it = trans.begin(); trans_it != trans.end(); trans_it++) {
+        // if transition is feasible, plan it
+        if ((*trans_it)->IsFeasible()) {
+            event = (*trans_it)->CreateEvent(this->GetSimtime());
+            this->calendar->AppendEvent(event);
         }
     }
 }

@@ -18,6 +18,7 @@ public:
   Transition *Tr = NULL;
   Place *Pl = NULL;
   ConnectionType Type;
+  int Capacity = 1;
 };
 
 #endif // __CONNECTION_HPP__
