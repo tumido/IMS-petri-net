@@ -26,6 +26,7 @@ private:
   std::vector<Transition*> normaltrans;
   std::vector<Transition*> generators;
   std::vector<ProbTrans*> probstranses;
+  int tokenId = 0;
 
   bool existsConnection(string id);
   Connection* findConnection(string id);
@@ -48,6 +49,8 @@ public:
   std::vector<Transition*> GetTransitions() { return this->normaltrans; };
   std::vector<ProbTrans*> GetProbGroups() { return this->probstranses; };
   std::vector<Transition*> GetGenerators() { return this->generators; };
+  Token* NewToken();
+  void RemoveToken(Token *token);
 };
 
 #endif // __MODEL_HPP__

@@ -7,16 +7,19 @@
 #define __TOKEN_HPP__
 
 class Place;
-#include "component.hpp"
 
-class Token : public Component {
+#include <cstddef>
+
+class Token {
 private:
     bool planned = false;
+    int id;
 public:
-  Token(std::string id) : Component(id) { };
+  Token(int id);
   Place *Location = NULL;
   void SetPlanned();
   bool isPlanned() { return planned; };
+  int GetId() { return this->id; };
 };
 
 #endif // __TOKEN_HPP__

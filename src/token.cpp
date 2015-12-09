@@ -6,6 +6,11 @@
 
 #include "token.hpp"
 
+Token::Token(int id)
+{
+  this->id = id;
+}
+
 void Token::SetPlanned() {
     this->planned = true;
 }
