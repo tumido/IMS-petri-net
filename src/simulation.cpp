@@ -98,6 +98,27 @@ Event * Simulation::CreateEvent(Transition * trans) {
     Event * event = new Event(time, trans, tokens);
     return event;
 }
-void Simulation::PerformEvent(Event * event) {
+
+void PopToken(Token * t) {
     return;
+}
+
+
+void Simulation::PerformEvent(Event * event) {
+    // remove tokens from model and places
+    std::vector<Token*>::iterator token_it;
+    for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++) {
+        PopToken(*token_it);
+    }
+    // create new tokens and add them to outputs of the transition
+    std::vector<Connection*>::iterator conn_it;
+    Token * token;
+    for (conn_it = event->GetTransitionPtr()->Outputs.begin(); conn_it != event->GetTransitionPtr()->Outputs.end(); conn_it++) {
+        for (int i = 0; i < (*conn_it)->Capacity; i++) {
+            token = NewToken();
+            // add token to model and place
+        }
+    }
+    // destroy event
+    delete event;
 }

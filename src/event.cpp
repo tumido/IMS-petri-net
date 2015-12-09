@@ -6,7 +6,7 @@
 #include "event.hpp"
 
 Event::Event(double t, Transition * trans, std::vector<Token *> tok):
-    time(t), transition(trans), tokens(tok) {
+    time(t), transition(trans), Tokens(tok) {
     //ctor
 }
 
@@ -14,10 +14,10 @@ Event::~Event() {
     //dtor
     std::vector<Token *>::iterator t;
 
-    for (t = tokens.begin(); t != tokens.end(); t++) {
+    for (t = Tokens.begin(); t != Tokens.end(); t++) {
         delete *t;
     }
-    tokens.clear();
+    Tokens.clear();
 }
 
 Transition * Event::GetTransitionPtr() {
@@ -25,14 +25,5 @@ Transition * Event::GetTransitionPtr() {
 }
 
 void Event::AddToken(Token * token) {
-    this->tokens.push_back(token);
-}
-
-Token * Event::PopToken() {
-    if(this->tokens.size() == 0)
-        return NULL;
-
-    Token * t = this->tokens.front();
-    tokens.erase(this->tokens.begin());
-    return t;
+    this->Tokens.push_back(token);
 }

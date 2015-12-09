@@ -14,14 +14,13 @@ class Event {
 private:
     double time;
     Transition * transition;
-    std::vector<Token *> tokens;
 public:
     Event(double , Transition * , std::vector<Token *>);
     ~Event();
     double GetTime() const { return this->time; };
     Transition * GetTransitionPtr();
     void AddToken(Token *);
-    Token * PopToken();
+    std::vector<Token *> Tokens;
     bool operator < (const Event& ref) const
     {
         return (this->time < ref.time);
