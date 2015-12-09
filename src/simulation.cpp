@@ -32,6 +32,8 @@ void Simulation::Start() {
         this->simtime = e->GetTime();
         // take action and make the transition
         this->PerformEvent(e);
+        // check if events are feasible
+        this->CheckEvents();
         // plan newly available events
         this->PlanEvents();
     }
@@ -49,7 +51,7 @@ void Simulation::PlanEvents() {
     // get all transitions
     for(trans_it = trans.begin(); trans_it != trans.end(); trans_it++) {
         // if transition is feasible, plan it
-        if ((*trans_it)->IsFeasible()) {
+        if ((*trans_it)->IsFeasible() && (*trans_it)->IsFeasibleNow()) {
             event = this->CreateEvent(*trans_it);
             this->calendar->AppendEvent(event);
         }
@@ -100,11 +102,20 @@ Event * Simulation::CreateEvent(Transition * trans) {
 }
 
 void PopToken(Token * t) {
-    return;
+    this->model->RemoveToken(t);
+    Place * p = t->Location;
+    p->RemoveToken(t);
 }
 
 
 void Simulation::PerformEvent(Event * event) {
+    //check again if the event can be performed
+    //input tokens are already reservated, but the output places could not have enough capacity
+    if (! event->GetTransitionPtr->IsFeasibleNow()) {
+        this->DiscardEvent(event);
+        return;
+    }
+
     // remove tokens from model and places
     std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++) {
@@ -117,8 +128,23 @@ void Simulation::PerformEvent(Event * event) {
         for (int i = 0; i < (*conn_it)->Capacity; i++) {
             token = NewToken();
             // add token to model and place
+            //TODO!!!
         }
     }
     // destroy event
     delete event;
+}
+
+void Simulation::DiscardEvent(Event * event) {
+    for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++)
+        (*token_it)->ClearPlanned();
+    delete event;
+}
+
+void Simulation::CheckEvents() {
+    std::vector<Event*>::iterator event_it;
+    for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
+        if (! (*event_it)->GetTransitionPtr->IsFeasibleNow())
+            this->DiscardEvent(event);
+    }
 }

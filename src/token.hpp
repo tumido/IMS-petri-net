@@ -16,6 +16,7 @@ public:
   Token(std::string id) : Component(id) { };
   Place *Location = NULL;
   void SetPlanned();
+  void ClearPlanned();
   bool isPlanned() { return planned; };
 };
 

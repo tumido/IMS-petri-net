@@ -12,6 +12,11 @@ bool Transition::IsFeasible() {
         if ((*conn_it)->Pl->GetCount() < (*conn_it)->Capacity)
             return false;
     }
+    return true;
+}
+
+bool Transition::IsFeasibleNow {
+    std::vector<Connection*>::iterator conn_it;
     // there is enough capacity on output places
     for (conn_it = this->Outputs.begin(); conn_it != this->Outputs.end(); conn_it++) {
         if (! (*conn_it)->Pl->WillFit((*conn_it)->Capacity) )

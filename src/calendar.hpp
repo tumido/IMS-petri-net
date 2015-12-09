@@ -17,14 +17,12 @@ struct compare {
 };
 
 class Calendar {
-private:
-    std::multiset<Event *, compare> list;
 public:
+    std::multiset<Event *, compare> List;
     Calendar();
     ~Calendar();
     void AppendEvent(Event *);
     Event * GetEvent();
-    void RemoveEvent();
     bool Empty();
 };
 

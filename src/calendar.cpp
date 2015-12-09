@@ -13,26 +13,22 @@ Calendar::~Calendar() {
     //dtor
     std::multiset<Event *, compare>::iterator i;
 
-    for(i = list.begin(); i != list.end(); i++) {
+    for(i = List.begin(); i != List.end(); i++) {
         delete *i;
     }
-    list.clear();
+    List.clear();
 }
 
 void Calendar::AppendEvent(Event * e) {
-    this->list.insert(e);
+    this->List.insert(e);
 }
 
 Event * Calendar::GetEvent() {
-    return * (this->list.begin());
-}
-
-void Calendar::RemoveEvent() {
-    Event * e = * (this->list.begin());
-    delete e;
-    this->list.erase(this->list.begin());
+    Event * e = *(this->List.begin());
+    this->List.erase(this->List.begin());
+    return e;
 }
 
 bool Calendar::Empty() {
-    return this->list.empty();
+    return this->List.empty();
 }

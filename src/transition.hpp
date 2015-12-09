@@ -23,6 +23,7 @@ public:
   int Value;
   TransType Type;
   bool IsFeasible();
+  bool IsFeasibleNow();
 };
 
 #endif // __TRANSITION_HPP__

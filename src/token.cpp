@@ -9,3 +9,7 @@
 void Token::SetPlanned() {
     this->planned = true;
 }
+
+void Token::ClearPlanned() {
+    this->planned = false;
+}

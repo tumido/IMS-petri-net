@@ -29,6 +29,8 @@ public:
     double GetSimtime() { return simtime; };
     Event * CreateEvent(Transition * );
     void PerformEvent(Event *);
+    void DiscardEvent(Event *);
+    void CheckEvents();
 };
 
 #endif // __SIMULATION_HPP__
