@@ -6,9 +6,15 @@
 #include "transition.hpp"
 
 bool Transition::IsFeasible() {
-    std::vector<Connection*>::iterator in_iter;
-    for (in_iter = this->Inputs.begin(); in_iter != this->Inputs.end(); in_iter++) {
-        if ((*in_iter)->Pl->GetCount() < (*in_iter)->Capacity)
+    std::vector<Connection*>::iterator conn_it;
+    // there are enough tokens on input places
+    for (conn_it = this->Inputs.begin(); conn_it != this->Inputs.end(); conn_it++) {
+        if ((*conn_it)->Pl->GetCount() < (*conn_it)->Capacity)
+            return false;
+    }
+    // there is enough capacity on output places
+    for (conn_it = this->Outputs.begin(); conn_it != this->Outputs.end(); conn_it++) {
+        if (! (*conn_it)->Pl->WillFit((*conn_it)->Capacity) )
             return false;
     }
     return true;
