@@ -31,6 +31,7 @@ public:
     void PerformEvent(Event *);
     void DiscardEvent(Event *);
     void CheckEvents();
+    void PopToken(Token * t);
 };
 
 #endif // __SIMULATION_HPP__

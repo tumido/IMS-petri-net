@@ -15,7 +15,7 @@ bool Transition::IsFeasible() {
     return true;
 }
 
-bool Transition::IsFeasibleNow {
+bool Transition::IsFeasibleNow() {
     std::vector<Connection*>::iterator conn_it;
     // there is enough capacity on output places
     for (conn_it = this->Outputs.begin(); conn_it != this->Outputs.end(); conn_it++) {

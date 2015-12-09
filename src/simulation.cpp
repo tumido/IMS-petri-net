@@ -101,7 +101,7 @@ Event * Simulation::CreateEvent(Transition * trans) {
     return event;
 }
 
-void PopToken(Token * t) {
+void Simulation::PopToken(Token * t) {
     this->model->RemoveToken(t);
     Place * p = t->Location;
     p->RemoveToken(t);
@@ -111,7 +111,7 @@ void PopToken(Token * t) {
 void Simulation::PerformEvent(Event * event) {
     //check again if the event can be performed
     //input tokens are already reservated, but the output places could not have enough capacity
-    if (! event->GetTransitionPtr->IsFeasibleNow()) {
+    if (! event->GetTransitionPtr()->IsFeasibleNow()) {
         this->DiscardEvent(event);
         return;
     }
@@ -127,8 +127,7 @@ void Simulation::PerformEvent(Event * event) {
     for (conn_it = event->GetTransitionPtr()->Outputs.begin(); conn_it != event->GetTransitionPtr()->Outputs.end(); conn_it++) {
         for (int i = 0; i < (*conn_it)->Capacity; i++) {
             token = model->NewToken();
-            // add token to model and place
-            //TODO!!!
+            (*conn_it)->Pl->AddToken(token);
         }
     }
     // destroy event
@@ -136,15 +135,16 @@ void Simulation::PerformEvent(Event * event) {
 }
 
 void Simulation::DiscardEvent(Event * event) {
+    std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++)
         (*token_it)->ClearPlanned();
     delete event;
 }
 
 void Simulation::CheckEvents() {
-    std::vector<Event*>::iterator event_it;
+    std::multiset<Event*, compare>::iterator event_it;
     for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
-        if (! (*event_it)->GetTransitionPtr->IsFeasibleNow())
-            this->DiscardEvent(event);
+        if (! (*event_it)->GetTransitionPtr()->IsFeasibleNow())
+            this->DiscardEvent(*event_it);
     }
 }
