@@ -27,7 +27,7 @@ bool Place::isUnlimited()
   return this->Capacity == 0;
 }
 
-bool Place::willFit(int count)
+bool Place::WillFit(int count)
 {
   return this->isUnlimited() || this->freespots <= count;
 }

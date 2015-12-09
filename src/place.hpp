@@ -25,7 +25,7 @@ public:
   int GetCount();
   bool isFree();
   bool isUnlimited();
-  bool willFit();
+  bool WillFit(int);
   void LeavePlace();
   bool EnterPlace();
   int Capacity = MAX_CAPACITY;
