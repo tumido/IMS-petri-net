@@ -134,6 +134,5 @@ Token* Model::NewToken()
 
 void Model::RemoveToken(Token *token)
 {
-  tokens.erase(std::remove(tokens.begin(), tokens.end(), token), tokens.end());
-  delete token;
+  tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
 }
