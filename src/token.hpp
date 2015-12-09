@@ -6,8 +6,8 @@
 #ifndef __TOKEN_HPP__
 #define __TOKEN_HPP__
 
+class Place;
 #include "component.hpp"
-#include "place.hpp"
 
 class Token : public Component {
 private:
@@ -15,8 +15,8 @@ private:
 public:
   Token(std::string id) : Component(id) { };
   Place *Location = NULL;
-  bool Move(Place *newPlace);
   void SetPlanned();
+  bool isPlanned() { return planned; };
 };
 
 #endif // __TOKEN_HPP__

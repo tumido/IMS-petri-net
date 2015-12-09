@@ -19,7 +19,12 @@ int Place::GetFreeCount()
 
 bool Place::isFree()
 {
-  return this->freespots > 0;
+  return this->isUnlimited() || this->freespots > 0;
+}
+
+bool Place::isUnlimited()
+{
+  return this->Capacity == 0;
 }
 
 void Place::LeavePlace()
@@ -38,5 +43,26 @@ bool Place::EnterPlace()
 }
 
 int Place::GetCount() {
-    return 0;
+    return this->Capacity - this->freespots;
+}
+
+Token* Place::GetToken()
+{
+  Token *token;
+  for(unsigned int i = 0; i < this->tokens.size(); i++) {
+    token = this->tokens[i];
+    if (token->isPlanned()) {
+      return token;
+    }
+  }
+  return NULL;
+}
+
+bool Place::AddToken(Token *token)
+{
+  if (this->EnterPlace()) {
+    this->tokens.push_back(token);
+    token->Location = this;
+  }
+  return false;
 }

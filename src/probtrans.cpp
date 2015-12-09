@@ -14,3 +14,17 @@ bool ProbTrans::isValid()
   }
   return sum == 100;
 }
+
+Transition* ProbTrans::PickTransition(int roll)
+{
+  int current = 0;
+  Transition* tr;
+  for (unsigned int i = 0; i < this->transitions.size(); i++) {
+    tr = this->transitions[i];
+    current += tr->Value;
+    if (roll < current) {
+      return tr;
+    }
+  }
+  return tr;
+}

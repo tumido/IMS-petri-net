@@ -74,7 +74,7 @@ void Model::AddToken(string id, string pId)
   auto place = this->findPlace(pId);
   if (place != NULL) {
     Token* token = new Token(id);
-    if (token->Move(place))
+    if (place->AddToken(token))
       this->tokens.push_back(token);
     else
       delete token;
@@ -109,4 +109,29 @@ void Model::AddTransition(string id, int timec, TransType type)
     tran->Type = type;
     this->transitions.push_back(tran);
   }
+}
+
+void Model::splitTransitions()
+{
+  Transition* tr;
+  std::vector<int> used;
+  for (unsigned int i = 0; i < this->transitions.size(); i++) {
+    tr = this->transitions[i];
+    if (tr->Type == TransType::Priority) {
+      //if(std::find(v.begin(), v.end(), x) != v.end()) {
+
+      //}
+    } else if (tr->Inputs.size() == 0) {
+      if (tr->Type == TransType::TimeConstant && tr->Type == TransType::TimeGenerated)
+        this->generators.push_back(tr);
+    } else {
+      this->normaltrans.push_back(tr);
+    }
+  }
+}
+
+bool Model::SetupAndValidate()
+{
+  this->splitTransitions();
+  return true;
 }

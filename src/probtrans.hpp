@@ -3,11 +3,12 @@
  * @author Albert Uchytil, Tomas Coufal
  * @brief Class consisting of probability transitions and their input
  */
-#ifndef __SIMULATION_HPP__
-#define __SIMULATION_HPP__
+#ifndef __PROBTRANS_HPP__
+#define __PROBTRANS_HPP__
 
 #include "place.hpp"
 #include "transition.hpp"
+#include "token.cpp"
 
 #include <vector>
 
@@ -17,7 +18,7 @@ public:
   Place *Input;
   std::vector<Transition*> transitions;
   bool isValid();
-  Transition * PickTransition(int);
+  Transition* PickTransition(int);
 };
 
-#endif // __SIMULATION_HPP__
+#endif // __PROBTRANS_HPP__

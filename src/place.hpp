@@ -6,24 +6,30 @@
 #ifndef __PLACE_HPP__
 #define __PLACE_HPP__
 
-class Token;
 #include "component.hpp"
+#include "place.hpp"
+#include "token.hpp"
 
 #include <string>
+
+#define MAX_CAPACITY 10000
 
 class Place : public Component {
 private:
   int freespots;
+  std::vector<Token*> tokens;
 public:
   Place(std::string id) : Component(id) { };
   void SetCapacity(int capacity);
   int GetFreeCount();
   int GetCount();
   bool isFree();
+  bool isUnlimited();
   void LeavePlace();
   bool EnterPlace();
-  int Capacity = 1;
+  int Capacity = MAX_CAPACITY;
   Token * GetToken();
+  bool AddToken(Token *);
 };
 
 #endif // __PLACE_HPP__

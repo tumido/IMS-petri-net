@@ -8,19 +8,24 @@
 
 #include "connection.hpp"
 #include "place.hpp"
+#include "probtrans.hpp"
 #include "token.hpp"
 #include "transition.hpp"
 
+#include <algorithm>
 #include <vector>
 
 using namespace std;
 
 class Model {
 private:
-  vector<Connection*> connections;
-  vector<Place*> places;
-  vector<Token*> tokens;
-  vector<Transition*> transitions;
+  std::vector<Connection*> connections;
+  std::vector<Place*> places;
+  std::vector<Token*> tokens;
+  std::vector<Transition*> transitions;
+  std::vector<Transition*> normaltrans;
+  std::vector<Transition*> generators;
+  std::vector<ProbTrans*> probstranses;
 
   bool existsConnection(string id);
   Connection* findConnection(string id);
@@ -28,6 +33,7 @@ private:
   Place* findPlace(string id);
   bool existsTransition(string id);
   Transition* findTransition(string id);
+  void splitTransitions();
 
 public:
   void AddConnection(string pId, string tId, ConnectionType type);
@@ -37,8 +43,11 @@ public:
   void AddTransition(string id, int prob);
   void AddTransitionP(string id, int priority);
   void AddTransition(string id, int time, TransType type);
-  vector<Token*> GetTokens() { return this->tokens; };
-  vector<Transition*> GetTransitions();
+  bool SetupAndValidate();
+  std::vector<Token*> GetTokens() { return this->tokens; };
+  std::vector<Transition*> GetTransitions() { return this->normaltrans; };
+  std::vector<ProbTrans*> GetProbGroups() { return this->probstranses; };
+  std::vector<Transition*> GetGenerators() { return this->generators; };
 };
 
 #endif // __MODEL_HPP__
