@@ -63,7 +63,7 @@ void Simulation::PlanEvents() {
     // get all transitions
     for(probtrans_it = probtrans.begin(); probtrans_it != probtrans.end(); probtrans_it++) {
         // roll the dice and pick transition within group
-        t = (*probtrans)->PickTransition(RollPercentage());
+        t = probtrans->PickTransition(RollPercentage());
         // if transition is feasible, plan it
         if (t->IsFeasible()) {
             event = this->CreateEvent(t);
