@@ -24,7 +24,8 @@ public:
     void Start();
     void SetEndtime(double);
     void PlanEvent();
-    double GetSimtime() { return simtime; };/*
+    double GetSimtime() { return simtime; };
+    Event * CreateEvent(Transition * );/*
     Model * GetModelPtr() { return model; };
     Calendar * GetCalendarPtr() { return calendar; };*/
 };

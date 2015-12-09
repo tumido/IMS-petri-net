@@ -21,3 +21,6 @@ bool Token::Move(Place *newPlace)
   } else
     return false;
 }
+void Token::SetPlanned() {
+    this->planned = true;
+}

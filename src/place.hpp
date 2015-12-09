@@ -6,6 +6,7 @@
 #ifndef __PLACE_HPP__
 #define __PLACE_HPP__
 
+class Token;
 #include "component.hpp"
 
 #include <string>
@@ -22,6 +23,7 @@ public:
   void LeavePlace();
   bool EnterPlace();
   int Capacity = 1;
+  Token * GetToken();
 };
 
 #endif // __PLACE_HPP__

@@ -11,6 +11,7 @@
 
 class Token : public Component {
 private:
+    bool planned = false;
 public:
   Token(std::string id) : Component(id) { };
   Place *Location = NULL;

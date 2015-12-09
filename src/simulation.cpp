@@ -38,8 +38,34 @@ void Simulation::PlanEvent() {
     for(trans_it = trans.begin(); trans_it != trans.end(); trans_it++) {
         // if transition is feasible, plan it
         if ((*trans_it)->IsFeasible()) {
-            event = (*trans_it)->CreateEvent(this->GetSimtime());
+            event = this->CreateEvent(*trans_it);
             this->calendar->AppendEvent(event);
         }
     }
+}
+Event * Simulation::CreateEvent(Transition * trans) {
+    //reserve tokens
+    std::vector<Connection*>::iterator conn_it;
+    std::vector<Token*> tokens;
+    Token * token;
+    // for each input connection grab all tokens needed
+    for (conn_it = trans->Inputs.begin(); conn_it != trans->Inputs.end(); conn_it++) {
+        for (int i = 0; i < (*conn_it)->Capacity; i++) {
+            token = (*conn_it)->Pl->GetToken();
+            tokens.push_back(token);
+            token->SetPlanned();
+        }
+    }
+
+    //set time
+    //default time is for instant transition TransType::Priority
+    double time = this->simtime;
+    if (trans->Type == TransType::TimeConstant) {
+        time = time + trans->Value;
+    }
+    else if (trans->Type == TransType::TimeGenerated) {
+        time = time + GenerateExponential(trans->Value);
+    }
+    Event * event = new Event(time, trans, tokens);
+    return event;
 }

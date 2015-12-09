@@ -36,3 +36,7 @@ bool Place::EnterPlace()
   } else
     return false;
 }
+
+int Place::GetCount() {
+    return 0;
+}

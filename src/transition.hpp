@@ -6,12 +6,11 @@
 #ifndef __TRANSITION_HPP__
 #define __TRANSITION_HPP__
 
-class Event;
-class Connection;
 
 #include "component.hpp"
 #include "token.hpp"
 #include "time_exp.hpp"
+#include "connection.hpp"
 
 #include <string>
 
@@ -24,7 +23,6 @@ public:
   int Value;
   TransType Type;
   bool IsFeasible();
-  Event * CreateEvent(double simtime);
 };
 
 #endif // __TRANSITION_HPP__

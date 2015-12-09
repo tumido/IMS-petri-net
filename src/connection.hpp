@@ -6,9 +6,10 @@
 #ifndef __CONNECTION_HPP__
 #define __CONNECTION_HPP__
 
+class Transition;
+
 #include "component.hpp"
 #include "place.hpp"
-#include "transition.hpp"
 
 enum class ConnectionType {FromPlace, ToPlace};
 
