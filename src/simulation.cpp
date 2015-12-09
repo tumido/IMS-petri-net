@@ -16,20 +16,24 @@ Simulation::~Simulation() {
     delete model;
 }
 void Simulation::Start() {
+    // randomize seed
+    RandomizeSeed();
+
     this->simtime = 0;
     //naplanovat
     while (!calendar->Empty() && (this->simtime < this->endtime)) {
         Event * e = calendar->GetEvent();
         this->simtime = e->GetTime();
         //provest
-        //naplanovat
+        this->PlanEvents();
     }
 }
 void Simulation::SetEndtime(double t) {
     this->endtime = t;
 }
 
-void Simulation::PlanEvent() {
+void Simulation::PlanEvents() {
+    // normal transitions (priority, timed)
     std::vector<Transition*>::iterator trans_it;
     std::vector<Transition*> trans = this->model->GetTransitions();
     Event* event;
@@ -42,7 +46,24 @@ void Simulation::PlanEvent() {
             this->calendar->AppendEvent(event);
         }
     }
+
+    // probability transitions, grouped -> pick one based on the roll
+    std::vector<ProbTrans*>::iterator probtrans_it;
+    std::vector<ProbTrans*> probtrans = this->model->GetProbGroups();
+    Transition * t;
+
+    // get all transitions
+    for(probtrans_it = probtrans.begin(); probtrans_it != probtrans.end(); probtrans_it++) {
+        // roll the dice and pick transition within group
+        t = (*probtrans)->PickTransition(RollPercentage());
+        // if transition is feasible, plan it
+        if (t->IsFeasible()) {
+            event = this->CreateEvent(t);
+            this->calendar->AppendEvent(event);
+        }
+    }
 }
+
 Event * Simulation::CreateEvent(Transition * trans) {
     //reserve tokens
     std::vector<Connection*>::iterator conn_it;
@@ -64,7 +85,7 @@ Event * Simulation::CreateEvent(Transition * trans) {
         time = time + trans->Value;
     }
     else if (trans->Type == TransType::TimeGenerated) {
-        time = time + GenerateExponential(trans->Value);
+        time = time + GenerateDelayExp(trans->Value);
     }
     Event * event = new Event(time, trans, tokens);
     return event;

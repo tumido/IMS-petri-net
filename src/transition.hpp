@@ -9,7 +9,7 @@
 
 #include "component.hpp"
 #include "token.hpp"
-#include "time_exp.hpp"
+#include "rand_gen.hpp"
 #include "connection.hpp"
 
 #include <string>

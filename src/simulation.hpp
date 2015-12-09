@@ -10,6 +10,8 @@
 #include "model.hpp"
 #include "event.hpp"
 #include "transition.hpp"
+#include "rand_gen.hpp"
+#include "probtrans.hpp"
 #include <vector>
 
 class Simulation {
@@ -23,7 +25,7 @@ public:
     ~Simulation();
     void Start();
     void SetEndtime(double);
-    void PlanEvent();
+    void PlanEvents();
     double GetSimtime() { return simtime; };
     Event * CreateEvent(Transition * );/*
     Model * GetModelPtr() { return model; };

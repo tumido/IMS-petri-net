@@ -17,6 +17,7 @@ public:
   Place *Input;
   std::vector<Transition*> transitions;
   bool isValid();
+  Transition * PickTransition(int);
 };
 
 #endif // __SIMULATION_HPP__
