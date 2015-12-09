@@ -71,3 +71,9 @@ bool Place::AddToken(Token *token)
   }
   return false;
 }
+
+void Place::RemoveToken(Token *token)
+{
+  tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
+  token->Location = NULL;
+}

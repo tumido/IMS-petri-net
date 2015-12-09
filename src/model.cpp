@@ -69,18 +69,6 @@ void Model::AddPlace(string id, int capacity)
   }
 }
 
-void Model::AddToken(string id, string pId)
-{
-  auto place = this->findPlace(pId);
-  if (place != NULL) {
-    Token* token = new Token(id);
-    if (place->AddToken(token))
-      this->tokens.push_back(token);
-    else
-      delete token;
-  }
-}
-
 void Model::AddTransition(string id, int prob)
 {
   if (!this->existsTransition(id)) {
@@ -134,4 +122,17 @@ bool Model::SetupAndValidate()
 {
   this->splitTransitions();
   return true;
+}
+
+Token* Model::NewToken()
+{
+  Token* token = new Token(this->tokenId);
+  this->tokenId++;
+  this->tokens.push_back(token);
+  return token;
+}
+
+void Model::RemoveToken(Token *token)
+{
+  tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
 }

@@ -126,7 +126,7 @@ void Simulation::PerformEvent(Event * event) {
     Token * token;
     for (conn_it = event->GetTransitionPtr()->Outputs.begin(); conn_it != event->GetTransitionPtr()->Outputs.end(); conn_it++) {
         for (int i = 0; i < (*conn_it)->Capacity; i++) {
-            token = NewToken();
+            token = model->NewToken();
             // add token to model and place
             //TODO!!!
         }

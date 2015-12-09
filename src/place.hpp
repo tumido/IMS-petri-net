@@ -10,6 +10,7 @@
 #include "place.hpp"
 #include "token.hpp"
 
+#include <algorithm>
 #include <string>
 
 #define MAX_CAPACITY 10000
@@ -31,6 +32,7 @@ public:
   int Capacity = MAX_CAPACITY;
   Token * GetToken();
   bool AddToken(Token *);
+  void RemoveToken(Token *);
 };
 
 #endif // __PLACE_HPP__
