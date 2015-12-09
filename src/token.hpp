@@ -15,10 +15,10 @@ private:
     bool planned = false;
     int id;
 public:
-  Token(int id);
+  Token(int i): id(i) {};
   Place *Location = NULL;
-  void SetPlanned();
-  void ClearPlanned();
+  void SetPlanned() { planned = true; };
+  void ClearPlanned() { planned = true; }
   bool isPlanned() { return planned; };
   int GetId() { return this->id; };
 };
