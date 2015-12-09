@@ -6,8 +6,10 @@
 #include "rand_gen.hpp"
 
 
-double GenerateDelayExp(double) {
-    return 0;
+double GenerateDelayExp(double centre) {
+    std::default_random_engine generator;
+    std::exponential_distribution<double> distrib(centre);
+    return distrib(generator);
 }
 
 int RollPercentage() {

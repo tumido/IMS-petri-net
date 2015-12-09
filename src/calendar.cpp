@@ -13,9 +13,8 @@ Calendar::~Calendar() {
     //dtor
     std::multiset<Event *, compare>::iterator i;
 
-    for(i = list.begin(); i != list.end(); i++)
-    {
-        delete * i;
+    for(i = list.begin(); i != list.end(); i++) {
+        delete *i;
     }
     list.clear();
 }

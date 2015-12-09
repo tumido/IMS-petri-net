@@ -27,9 +27,8 @@ public:
     void SetEndtime(double);
     void PlanEvents();
     double GetSimtime() { return simtime; };
-    Event * CreateEvent(Transition * );/*
-    Model * GetModelPtr() { return model; };
-    Calendar * GetCalendarPtr() { return calendar; };*/
+    Event * CreateEvent(Transition * );
+    void PerformEvent(Event *);
 };
 
 #endif // __SIMULATION_HPP__

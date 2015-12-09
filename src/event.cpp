@@ -12,6 +12,12 @@ Event::Event(double t, Transition * trans, std::vector<Token *> tok):
 
 Event::~Event() {
     //dtor
+    std::vector<Token *>::iterator t;
+
+    for (t = tokens.begin(); t != tokens.end(); t++) {
+        delete *t;
+    }
+    tokens.clear();
 }
 
 Transition * Event::GetTransitionPtr() {

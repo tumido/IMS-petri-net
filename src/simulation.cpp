@@ -19,12 +19,20 @@ void Simulation::Start() {
     // randomize seed
     RandomizeSeed();
 
+    // setup
     this->simtime = 0;
-    //naplanovat
+
+    // initial planning
+    this->PlanEvents();
+
+    // simulate
     while (!calendar->Empty() && (this->simtime < this->endtime)) {
+        // get event from calendar and simulate the transition
         Event * e = calendar->GetEvent();
         this->simtime = e->GetTime();
-        //provest
+        // take action and make the transition
+        this->PerformEvent(e);
+        // plan newly available events
         this->PlanEvents();
     }
 }
@@ -89,4 +97,7 @@ Event * Simulation::CreateEvent(Transition * trans) {
     }
     Event * event = new Event(time, trans, tokens);
     return event;
+}
+void Simulation::PerformEvent(Event * event) {
+    return;
 }

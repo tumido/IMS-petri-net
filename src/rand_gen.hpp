@@ -8,6 +8,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <random>
 
 double GenerateDelayExp(double);
 void RandomizeSeed();
