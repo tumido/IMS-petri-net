@@ -107,16 +107,37 @@ void Model::AddToken(string pId)
   }
 }
 
+ProbTrans* Model::findProbTransSameEntrance(Transition *tr)
+{
+  ProbTrans* prtr = NULL;
+  for (unsigned int i = 0; i < this->probstranses.size(); i++) {
+    prtr = this->probstranses[i];
+    if (prtr->Input == tr->Input())
+      return prtr;
+  }
+  return prtr;
+}
+
+void Model::assignProbTrans(Transition *tr)
+{
+  auto prtr = this->findProbTransSameEntrance(tr);
+  if (prtr != NULL) {
+    prtr->transitions.push_back(tr);
+  } else {
+    prtr = new ProbTrans();
+    prtr->transitions.push_back(tr);
+    prtr->Input = tr->Input();
+    this->probstranses.push_back(prtr);
+  }
+}
+
 void Model::splitTransitions()
 {
   Transition* tr;
-  std::vector<int> used;
   for (unsigned int i = 0; i < this->transitions.size(); i++) {
     tr = this->transitions[i];
     if (tr->Type == TransType::Priority) {
-      //if(std::find(v.begin(), v.end(), x) != v.end()) {
-
-      //}
+      this->assignProbTrans(tr);
     } else if (tr->Inputs.size() == 0) {
       if (tr->Type == TransType::TimeConstant && tr->Type == TransType::TimeGenerated)
         this->generators.push_back(tr);
