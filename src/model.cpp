@@ -57,7 +57,7 @@ void Model::AddConnection(string pId, string tId, ConnectionType type)
 
 void Model::AddPlace(string id)
 {
-  this->AddPlace(id, 20);
+  this->AddPlace(id, 0);
 }
 
 void Model::AddPlace(string id, int capacity)
@@ -67,6 +67,11 @@ void Model::AddPlace(string id, int capacity)
     place->SetCapacity(capacity);
     this->places.push_back(place);
   }
+}
+
+void Model::AddTransition(string id)
+{
+  this->AddTransitionP(id, 0);
 }
 
 void Model::AddTransition(string id, int prob)
