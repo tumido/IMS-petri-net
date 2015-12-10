@@ -4,15 +4,24 @@
 CPP = g++
 CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g
 NAME = ims_project
-SOURCE = $(shell find . -type f | grep src)
+
+SRCS = $(shell find . -type f | grep src/.*\.cpp)
+HDRS = $(shell find . -type f | grep src/.*\.hpp)
+OBJS=$(subst .cpp,.o,$(SRCS))
+
 LOGIN1 = xuchyt03
 LOGIN2 = xcoufa09
-ARCHIVE_NAME = 02_$(LOGIN1)_$(LOGIN2)
+ARCHIVE_NAME = 02_$(LOGIN1)_$(LOGIN2).tar.gz
 
 # Rules #
 #########
-all:
-	$(CPP) $(CPPFLAGS) -o $(NAME) $(SOURCE)
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CPP) $(CPPFLAGS) -o $(NAME) $^
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $^ -o $@
 
 run:
 	./$(NAME)
@@ -22,8 +31,7 @@ run:
 .PHONY: clean pack
 .SILENT: clean pack
 clean:
-	-rm $(NAME)
-	-rm $(ARCHIVE_NAME).tar.gz
+	-rm -rf $(NAME) $(ARCHIVE_NAME) $(OBJS)
 
 pack:
-	tar cfz $(ARCHIVE_NAME).tar.gz *
+	tar cfz $(ARCHIVE_NAME) $(SRCS) $(HDRS) Makefile
