@@ -5,9 +5,11 @@ CPP = g++
 CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g
 NAME = ims_project
 
-SRCS = $(shell find . -type f | grep src/.*\.cpp)
-HDRS = $(shell find . -type f | grep src/.*\.hpp)
-OBJS=$(subst .cpp,.o,$(SRCS))
+BUILDDIR=build
+SOURCEDIR=src
+SRCS= $(wildcard $(SOURCEDIR)/*.cpp)
+HDRS = $(wildcard $(SOURCEDIR)/*.hpp)
+OBJS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
 LOGIN1 = xuchyt03
 LOGIN2 = xcoufa09
@@ -15,12 +17,12 @@ ARCHIVE_NAME = 02_$(LOGIN1)_$(LOGIN2).tar.gz
 
 # Rules #
 #########
-all: $(NAME)
+all: build $(NAME)
 
 $(NAME): $(OBJS)
 	$(CPP) $(CPPFLAGS) -o $(NAME) $^
 
-%.o: %.cpp
+$(OBJS): $(BUILDDIR)%.o: $(SOURCEDIR)%.cpp
 	$(CPP) $(CPPFLAGS) -c $^ -o $@
 
 run:
@@ -28,10 +30,12 @@ run:
 
 # Phony #
 #########
-.PHONY: clean pack
-.SILENT: clean pack
+.PHONY: clean pack build
+.SILENT: clean pack build
+build:
+	-mkdir -p $(BUILDDIR)
 clean:
-	-rm -rf $(NAME) $(ARCHIVE_NAME) $(OBJS)
+	-rm -rf $(NAME) $(ARCHIVE_NAME) $(BUILDDIR)
 
 pack:
 	tar cfz $(ARCHIVE_NAME) $(SRCS) $(HDRS) Makefile
