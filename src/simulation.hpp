@@ -22,7 +22,7 @@ private:
     double simtime;
     double endtime;
 public:
-    Simulation();
+    Simulation(Model *);
     ~Simulation();
     void Start();
     void SetEndtime(double);

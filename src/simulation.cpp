@@ -7,9 +7,8 @@
 #include "simulation.hpp"
 
 
-Simulation::Simulation() {
+Simulation::Simulation(Model *m): model(m) {
     calendar = new Calendar();
-    model = new Model();
 }
 Simulation::~Simulation() {
     delete calendar;
