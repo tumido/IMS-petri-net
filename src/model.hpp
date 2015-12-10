@@ -13,6 +13,7 @@
 #include "transition.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <vector>
 
 using namespace std;
@@ -40,7 +41,7 @@ public:
   void AddConnection(string pId, string tId, ConnectionType type);
   void AddPlace(string id);
   void AddPlace(string id, int capacity);
-  void AddToken(string id, string pId);
+  void AddToken(string pId);
   void AddTransition(string id, int prob);
   void AddTransitionP(string id, int priority);
   void AddTransition(string id, int time, TransType type);

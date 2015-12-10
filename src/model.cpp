@@ -99,6 +99,14 @@ void Model::AddTransition(string id, int timec, TransType type)
   }
 }
 
+void Model::AddToken(string pId)
+{
+  auto place = this->findPlace(pId);
+  if (place != NULL) {
+    place->AddToken(this->NewToken());
+  }
+}
+
 void Model::splitTransitions()
 {
   Transition* tr;
