@@ -9,6 +9,7 @@
 #include <vector>
 #include "transition.hpp"
 #include "token.hpp"
+#include "debug.hpp"
 
 class Event {
 private:

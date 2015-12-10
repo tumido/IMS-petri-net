@@ -10,6 +10,7 @@ void Place::SetCapacity(int capacity)
 {
   this->Capacity = capacity;
   this->freespots = capacity;
+  debug("place", "capacity set");
 }
 
 int Place::GetFreeCount()
@@ -56,7 +57,7 @@ Token* Place::GetToken()
   Token *token;
   for(unsigned int i = 0; i < this->tokens.size(); i++) {
     token = this->tokens[i];
-    if (token->isPlanned()) {
+    if (token->isPlanned()) { //???
       return token;
     }
   }
@@ -65,6 +66,7 @@ Token* Place::GetToken()
 
 bool Place::AddToken(Token *token)
 {
+  debug("place", "adding token");
   if (this->EnterPlace()) {
     this->tokens.push_back(token);
     token->Location = this;
@@ -74,6 +76,7 @@ bool Place::AddToken(Token *token)
 
 void Place::RemoveToken(Token *token)
 {
+  debug("place", "removing token");
   tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
   token->Location = NULL;
 }

@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#define DEBUG
 
 using namespace std;
 

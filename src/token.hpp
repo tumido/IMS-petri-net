@@ -8,6 +8,7 @@
 
 class Place;
 
+#include "debug.hpp"
 #include <cstddef>
 
 class Token {

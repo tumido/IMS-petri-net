@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include "event.hpp"
+#include "debug.hpp"
 
 struct compare {
     bool operator() (const Event * first, const Event * second) const {

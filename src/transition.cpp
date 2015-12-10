@@ -6,6 +6,7 @@
 #include "transition.hpp"
 
 bool Transition::IsFeasible() {
+    debug("transition", "checking feasibility for planning");
     std::vector<Connection*>::iterator conn_it;
     // there are enough tokens on input places
     for (conn_it = this->Inputs.begin(); conn_it != this->Inputs.end(); conn_it++) {
@@ -16,6 +17,7 @@ bool Transition::IsFeasible() {
 }
 
 bool Transition::IsFeasibleNow() {
+    debug("transition", "checking feasibility in time");
     std::vector<Connection*>::iterator conn_it;
     // there is enough capacity on output places
     for (conn_it = this->Outputs.begin(); conn_it != this->Outputs.end(); conn_it++) {

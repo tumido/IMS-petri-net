@@ -16,6 +16,7 @@ Simulation::~Simulation() {
     delete model;
 }
 void Simulation::Start() {
+    debug("simulation", "starting");
     // randomize seed
     RandomizeSeed();
 
@@ -37,12 +38,14 @@ void Simulation::Start() {
         // plan newly available events
         this->PlanEvents();
     }
+    debug("simulation", "done");
 }
 void Simulation::SetEndtime(double t) {
     this->endtime = t;
 }
 
 void Simulation::PlanEvents() {
+    debug("simulation", "planning events");
     // normal transitions (priority, timed)
     std::vector<Transition*>::iterator trans_it;
     std::vector<Transition*> trans = this->model->GetTransitions();
@@ -72,9 +75,11 @@ void Simulation::PlanEvents() {
             this->calendar->AppendEvent(event);
         }
     }
+    debug("simulation", "events planned");
 }
 
 Event * Simulation::CreateEvent(Transition * trans) {
+    debug("simulator", "creating new event");
     //reserve tokens
     std::vector<Connection*>::iterator conn_it;
     std::vector<Token*> tokens;
@@ -98,17 +103,21 @@ Event * Simulation::CreateEvent(Transition * trans) {
         time = time + GenerateDelayExp(trans->Value);
     }
     Event * event = new Event(time, trans, tokens);
+    debug("simulator", "new event created");
     return event;
 }
 
 void Simulation::PopToken(Token * t) {
+    debug("simulator", "removing token");
     this->model->RemoveToken(t);
     Place * p = t->Location;
     p->RemoveToken(t);
+    debug("simulator", "removed token");
 }
 
 
 void Simulation::PerformEvent(Event * event) {
+    debug("simulator", "started processing event");
     //check again if the event can be performed
     //input tokens are already reservated, but the output places could not have enough capacity
     if (! event->GetTransitionPtr()->IsFeasibleNow()) {
@@ -132,19 +141,24 @@ void Simulation::PerformEvent(Event * event) {
     }
     // destroy event
     delete event;
+    debug("simulator", "event proceed");
 }
 
 void Simulation::DiscardEvent(Event * event) {
+    debug("simulator", "discarding event");
     std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++)
         (*token_it)->ClearPlanned();
     delete event;
+    debug("simulator", "event discarded");
 }
 
 void Simulation::CheckEvents() {
+    debug("simulator", "checking planned events if doable");
     std::multiset<Event*, compare>::iterator event_it;
     for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
         if (! (*event_it)->GetTransitionPtr()->IsFeasibleNow())
             this->DiscardEvent(*event_it);
     }
+    debug("simulator", "check-up done");
 }

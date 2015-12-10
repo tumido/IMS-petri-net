@@ -11,6 +11,7 @@
 #include "token.hpp"
 #include "rand_gen.hpp"
 #include "connection.hpp"
+#include "debug.hpp"
 
 #include <string>
 
