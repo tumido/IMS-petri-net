@@ -35,6 +35,8 @@ private:
   Place* findPlace(string id);
   bool existsTransition(string id);
   Transition* findTransition(string id);
+  ProbTrans* findProbTransSameEntrance(Transition *tr);
+  void assignProbTrans(Transition *tr);
   void splitTransitions();
 
 public:

@@ -24,3 +24,12 @@ bool Transition::IsFeasibleNow() {
     }
     return true;
 }
+
+Place* Transition::Input()
+{
+  if (this->Inputs.size() == 0) {
+    return NULL;
+  } else {
+    return this->Inputs[0]->Pl;
+  }
+}

@@ -24,6 +24,7 @@ public:
   TransType Type;
   bool IsFeasible();
   bool IsFeasibleNow();
+  Place* Input();
 };
 
 #endif // __TRANSITION_HPP__
