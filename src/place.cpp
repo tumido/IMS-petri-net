@@ -49,18 +49,26 @@ bool Place::EnterPlace()
 }
 
 int Place::GetCount() {
-    return this->Capacity - this->freespots;
+    int count = 0;
+    std::vector<Token*>::iterator tok_it;
+    for(tok_it = this->tokens.begin(); tok_it < this->tokens.end(); tok_it++) {
+        if (! (*tok_it)->isPlanned())
+            count = count + 1;
+    }
+    return count;
 }
 
 Token* Place::GetToken()
 {
-  Token *token;
-  for(unsigned int i = 0; i < this->tokens.size(); i++) {
-    token = this->tokens[i];
-    if (token->isPlanned()) { //???
-      return token;
+  debug("place", "getting token");
+  std::vector<Token*>::iterator tok_it;
+  for(tok_it = this->tokens.begin(); tok_it < this->tokens.end(); tok_it++) {
+    debug("place", "iterating token");
+    if (! (*tok_it)->isPlanned()) {
+      return (*tok_it);
     }
   }
+  debug("place", "no token available");
   return NULL;
 }
 
@@ -70,6 +78,8 @@ bool Place::AddToken(Token *token)
   if (this->EnterPlace()) {
     this->tokens.push_back(token);
     token->Location = this;
+    debug("place", "token added");
+    return true;
   }
   return false;
 }
@@ -79,4 +89,5 @@ void Place::RemoveToken(Token *token)
   debug("place", "removing token");
   tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
   token->Location = NULL;
+  std::cout << "tokens in place " << tokens.size() << std::endl;
 }

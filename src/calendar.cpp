@@ -34,6 +34,12 @@ Event * Calendar::GetEvent() {
 }
 
 bool Calendar::Empty() {
-    debug("calendar", "is empty");
-    return this->List.empty();
+    if (this->List.empty()) {
+        debug("calendar", "is empty");
+        return true;
+    }
+    else {
+        debug("calendar", "full of events");
+        return false;
+    }
 }

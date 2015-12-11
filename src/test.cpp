@@ -28,6 +28,7 @@ Model* test::Model01() {
   model->AddConnection("P4", "T4", ConnectionType::FromPlace);
 
   model->AddToken("P2");
+  model->SetupAndValidate();
 
   return model;
 }

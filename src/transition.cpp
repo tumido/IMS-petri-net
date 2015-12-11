@@ -6,13 +6,19 @@
 #include "transition.hpp"
 
 bool Transition::IsFeasible() {
-    debug("transition", "checking feasibility for planning");
+    std::ostringstream s;
+    s << "checking feasibility for planning, transition: " << this->Id;
+    debug("transition", s.str());
     std::vector<Connection*>::iterator conn_it;
     // there are enough tokens on input places
     for (conn_it = this->Inputs.begin(); conn_it != this->Inputs.end(); conn_it++) {
+        s.str("");
+        s << "input.cap = " << (*conn_it)->Capacity << ", tokens = " << (*conn_it)->Pl->GetCount();
+        debug("transition", s.str());
         if ((*conn_it)->Pl->GetCount() < (*conn_it)->Capacity)
             return false;
     }
+    debug("transition", "transition approved");
     return true;
 }
 
@@ -24,6 +30,7 @@ bool Transition::IsFeasibleNow() {
         if (! (*conn_it)->Pl->WillFit((*conn_it)->Capacity) )
             return false;
     }
+    debug("transition", "transition approved");
     return true;
 }
 

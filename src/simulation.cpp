@@ -75,7 +75,7 @@ void Simulation::PlanEvents() {
             this->calendar->AppendEvent(event);
         }
     }
-    debug("simulation", "events planned");
+    debug("simulation", "all events planned, done");
 }
 
 void Simulation::PlanGenerators() {
@@ -100,7 +100,7 @@ void Simulation::PlanGenerators() {
             this->calendar->AppendEvent(event);
         }
     }
-    debug("simulation", "generators planned");
+    debug("simulation", "all generators planned, done");
 }
 
 Event * Simulation::CreateEvent(Transition * trans) {

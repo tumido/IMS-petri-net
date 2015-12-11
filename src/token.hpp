@@ -18,8 +18,8 @@ private:
 public:
   Token(int i): id(i) {};
   Place *Location = NULL;
-  void SetPlanned() { planned = true; };
-  void ClearPlanned() { planned = true; }
+  void SetPlanned() { this->planned = true; };
+  void ClearPlanned() { this->planned = true; };
   bool isPlanned() { return planned; };
   int GetId() { return this->id; };
 };

@@ -10,6 +10,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <random>
+#include <sstream>
 
 double GenerateDelayExp(double);
 void RandomizeSeed();

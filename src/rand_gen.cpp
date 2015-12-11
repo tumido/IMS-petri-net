@@ -7,10 +7,15 @@
 
 
 double GenerateDelayExp(double centre) {
-    std::default_random_engine generator;
-    std::exponential_distribution<double> distrib(centre);
-    debug("rand", "picking exponential distribution");
-    return distrib(generator);
+    std::random_device rd;
+    std::exponential_distribution<double> distrib(1/centre);
+    std::mt19937 generator (rd ());
+    double ret = distrib(generator);
+
+    std::ostringstream s;
+    s << "picking exp(" << centre << ") = " << ret;
+    debug("rand", s.str());
+    return ret;
 }
 
 int RollPercentage() {
