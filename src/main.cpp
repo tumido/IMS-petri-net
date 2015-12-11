@@ -9,7 +9,7 @@
 #include "model.hpp"
 #include "simulation.hpp"
 #include "debug.hpp"
-#define YOLO 10
+#define YOLO 1000
 
 using namespace std;
 
@@ -23,12 +23,12 @@ int main(int argc, char* argv[])
   model->SetupAndValidate();
 
   debug("main", "preparing simulation");
-  Simulation * simulation =  new Simulation(model);
-  simulation->SetEndtime(YOLO);
+  Simulation simulation = Simulation(model);
+  simulation.SetEndtime(YOLO);
 
   cout << "Running simulation..." << endl;
-  simulation->Start();
+  simulation.Start();
   cout << "*Done*" << endl;
 
-  simulation->PrintStats();
+  simulation.PrintStats();
 }

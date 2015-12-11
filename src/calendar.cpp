@@ -55,7 +55,7 @@ void Calendar::RemoveEvent(Event * event) {
  }
 
 void Calendar::PrintStats() {
-    Stats::PrintHeader("CALENDAR", "value");
+    Stats::PrintHeader("CALENDAR", "amount");
     Stats::PrintRow("Total events added", this->added);
     Stats::PrintRow("Total events proceed", this->proceed);
     Stats::PrintRow("Events removed while checkup", this->removed);

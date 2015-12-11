@@ -33,6 +33,7 @@ void Simulation::Start() {
         this->simtime = e->GetTime();
         //end simulation if endtime reached
         if (this->simtime >= this->endtime) {
+            DeleteEvent(e);
             debug("simulation", "endtime reached");
             break;
         }
@@ -89,6 +90,7 @@ void Simulation::PlanGenerators() {
     std::vector<Transition*> gens = this->model->GetGenerators();
     Event* event;
     double time = this->simtime;
+    std::vector<Token*> * tokens;
 
     // get each generator
     for(gen_it = gens.begin(); gen_it != gens.end(); gen_it++) {
@@ -101,7 +103,8 @@ void Simulation::PlanGenerators() {
             else
                 time = time + GenerateDelayExp((*gen_it)->Value);
             // create and plan event
-            event = new Event(time, (*gen_it), new std::vector<Token*>);
+            tokens =  new std::vector<Token*>;
+            event = new Event(time, (*gen_it), tokens);
             this->calendar->AppendEvent(event);
         }
     }
@@ -142,9 +145,18 @@ void Simulation::PopToken(Token * t) {
     this->model->RemoveToken(t);
     Place * p = t->Location;
     p->RemoveToken(t);
+    delete t;
     debug("simulator", "removed token");
 }
 
+void Simulation::DeleteEvent(Event * event) {
+    std::vector<Token *>::iterator t;
+    for (t = event->Tokens->begin(); t != event->Tokens->end(); t++) {
+        PopToken(*t);
+    }
+    event->Tokens->clear();
+    delete event;
+}
 
 void Simulation::PerformEvent(Event * event) {
     std::ostringstream s;
@@ -153,7 +165,7 @@ void Simulation::PerformEvent(Event * event) {
     //check again if the event can be performed
     //input tokens are already reservated, but the output places could not have enough capacity
     if (! event->GetTransitionPtr()->IsFeasibleNow()) {
-        this->DiscardEvent(event);
+        DeleteEvent(event);
         return;
     }
     // increment the proceed events counter

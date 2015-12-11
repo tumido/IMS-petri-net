@@ -12,13 +12,6 @@ Event::Event(double t, Transition * trans, std::vector<Token *> * tok):
 
 Event::~Event() {
     //dtor
-    debug("event", "destroying");
-    std::vector<Token *>::iterator t;
-
-    for (t = Tokens->begin(); t != Tokens->end(); t++) {
-        delete *t;
-    }
-    Tokens->clear();
     delete Tokens;
     debug("event", "destroyed");
 }

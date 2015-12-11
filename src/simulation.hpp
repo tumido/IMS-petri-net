@@ -33,6 +33,7 @@ public:
     Event * CreateEvent(Transition * );
     void PerformEvent(Event *);
     void DiscardEvent(Event *);
+    void DeleteEvent(Event *);
     void CheckEvents();
     void PopToken(Token * t);
     void PrintStats();
