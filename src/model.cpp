@@ -6,6 +6,24 @@
 
 #include "model.hpp"
 
+Model::~Model()
+{
+  for (unsigned int i = 0; i < this->connections.size(); i++)
+    delete this->connections[i];
+
+  for (unsigned int i = 0; i < this->places.size(); i++)
+    delete this->places[i];
+
+  for (unsigned int i = 0; i < this->tokens.size(); i++)
+    delete this->tokens[i];
+
+  for (unsigned int i = 0; i < this->transitions.size(); i++)
+    delete this->transitions[i];
+
+  for (unsigned int i = 0; i < this->probstranses.size(); i++)
+    delete this->probstranses[i];
+}
+
 bool Model::existsPlace(string id)
 {
   debug("model", "checks if place with id '" + id + "' exists");
