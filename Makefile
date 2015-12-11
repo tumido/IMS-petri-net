@@ -2,7 +2,7 @@
 # Variables #
 #############
 CPP = g++
-CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g -D DEBUG
+CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g
 NAME = ims_project
 
 BUILDDIR=build
@@ -24,6 +24,9 @@ $(NAME): $(OBJS)
 
 $(OBJS): $(BUILDDIR)%.o: $(SOURCEDIR)%.cpp
 	$(CPP) $(CPPFLAGS) -c $^ -o $@
+
+debug: CPPFLAGS += -D DEBUG
+debug: build $(NAME)
 
 run:
 	./$(NAME)
