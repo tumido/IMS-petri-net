@@ -14,6 +14,7 @@
 #include "debug.hpp"
 
 #include <string>
+#include <sstream>
 
 enum class TransType { TimeConstant, TimeGenerated, Priority, Probability };
 

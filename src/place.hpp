@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <string>
+#include <sstream>
 
 #define MAX_CAPACITY 10000
 

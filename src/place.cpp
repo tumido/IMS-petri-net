@@ -89,5 +89,7 @@ void Place::RemoveToken(Token *token)
   debug("place", "removing token");
   tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
   token->Location = NULL;
-  std::cout << "tokens in place " << tokens.size() << std::endl;
+  std::ostringstream s;
+  s << "tokens in place " << this->Id << ": " << tokens.size();
+  debug("place", s.str());
 }

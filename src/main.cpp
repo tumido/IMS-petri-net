@@ -16,8 +16,10 @@ using namespace std;
 int main(int argc, char* argv[])
 {
   debug("main", "creating model");
-  Model * model = test::Model01();
+  //Model * model = test::Model01();
+  Model * model = test::Model02();
   debug("main", "validating model");
+  model->SetupAndValidate();
 
   debug("main", "preparing simulation");
   Simulation * simulation =  new Simulation(model);
