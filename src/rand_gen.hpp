@@ -6,7 +6,7 @@
 #ifndef __RAND_GEN_HPP__
 #define __RAND_GEN_HPP__
 
-#include "stats.hpp"
+#include "debug.hpp"
 #include <time.h>
 #include <stdlib.h>
 #include <random>

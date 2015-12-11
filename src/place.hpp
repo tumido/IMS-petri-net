@@ -9,7 +9,7 @@
 #include "component.hpp"
 #include "place.hpp"
 #include "token.hpp"
-#include "stats.hpp"
+#include "debug.hpp"
 
 #include <algorithm>
 #include <string>

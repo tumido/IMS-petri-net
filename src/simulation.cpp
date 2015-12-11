@@ -43,6 +43,7 @@ void Simulation::Start() {
         // plan newly available events
         this->PlanEvents();
     }
+    this->calendar->PrintStats();
     debug("simulation", "done");
 }
 void Simulation::SetEndtime(double t) {

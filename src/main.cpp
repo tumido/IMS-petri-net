@@ -8,7 +8,7 @@
 #include "test.hpp"
 #include "model.hpp"
 #include "simulation.hpp"
-#include "stats.hpp"
+#include "debug.hpp"
 #define YOLO 10
 
 using namespace std;

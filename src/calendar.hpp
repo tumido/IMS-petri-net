@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include "event.hpp"
+#include "debug.hpp"
 #include "stats.hpp"
 
 struct compare {

@@ -10,7 +10,7 @@ class Transition;
 
 #include "component.hpp"
 #include "place.hpp"
-#include "stats.hpp"
+#include "debug.hpp"
 
 enum class ConnectionType {FromPlace, ToPlace};
 
