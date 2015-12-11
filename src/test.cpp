@@ -80,3 +80,65 @@ Model* test::Model02() {
 
   return model;
 }
+
+Model* test::Model03() {
+  auto model = new Model;
+
+  model->AddPlace("QueueNormal");
+  model->AddPlace("QueueRacers");
+  model->AddPlace("Station");
+  model->AddPlace("OnTurn");
+  model->AddPlace("TBarPool");
+  model->AddPlace("GettingOnTBar");
+  model->AddPlace("TravellingUp");
+  model->AddPlace("TBarAlone");
+  model->AddPlace("TBarReturning");
+  model->AddPlace("GotOff");
+
+  model->AddTransition("Skiers", 1, TransType::TimeGenerated);
+  model->AddTransition("Racers", 10, TransType::TimeGenerated);
+  model->AddTransition("AllocStationNormal");
+  model->AddTransitionP("AllocStationRacers", 1);
+  model->AddTransition("CatchingTBar");
+  model->AddTransition("Fail", 10);
+  model->AddTransition("Success", 90);
+  model->AddTransition("TimeUp1", 4, TransType::TimeConstant);
+  model->AddTransition("TimeUp2", 4, TransType::TimeConstant);
+  model->AddTransition("TimeDown", 4, TransType::TimeConstant);
+  model->AddTransition("Skiing");
+
+  model->AddConnection("QueueNormal", "Skiers", ConnectionType::ToPlace);
+  model->AddConnection("QueueRacers", "Racers", ConnectionType::ToPlace);
+
+  model->AddConnection("QueueNormal", "AllocStationNormal", ConnectionType::FromPlace);
+  model->AddConnection("QueueRacers", "AllocStationRacers", ConnectionType::FromPlace);
+  model->AddConnection("Station", "AllocStationNormal", ConnectionType::FromPlace);
+  model->AddConnection("Station", "AllocStationRacers", ConnectionType::FromPlace);
+
+  model->AddConnection("OnTurn", "CatchingTBar", ConnectionType::FromPlace);
+  model->AddConnection("OnTurn", "AllocStationNormal", ConnectionType::ToPlace);
+  model->AddConnection("OnTurn", "AllocStationRacers", ConnectionType::ToPlace);
+  model->AddConnection("OnTurn", "Fail", ConnectionType::ToPlace);
+
+  model->AddConnection("TBarPool", "CatchingTBar", ConnectionType::FromPlace);
+  model->AddConnection("GettingOnTBar", "CatchingTBar", ConnectionType::ToPlace);
+
+  model->AddConnection("GettingOnTBar", "Fail", ConnectionType::FromPlace);
+  model->AddConnection("TBarAlone", "Fail", ConnectionType::ToPlace);
+  model->AddConnection("TBarAlone", "TimeUp1", ConnectionType::FromPlace);
+
+  model->AddConnection("TBarReturning", "TimeUp1", ConnectionType::ToPlace);
+  model->AddConnection("TBarReturning", "TimeDown", ConnectionType::FromPlace);
+  model->AddConnection("TBarPool", "TimeDown", ConnectionType::ToPlace);
+
+  model->AddConnection("GettingOnTBar", "Success", ConnectionType::FromPlace);
+  model->AddConnection("TravellingUp", "Success", ConnectionType::ToPlace);
+  model->AddConnection("Station", "Success", ConnectionType::ToPlace);
+
+  model->AddConnection("TravellingUp", "TimeUp2", ConnectionType::FromPlace);
+  model->AddConnection("TBarReturning", "TimeUp2", ConnectionType::ToPlace);
+  model->AddConnection("GotOff", "TimeUp2", ConnectionType::ToPlace);
+  model->AddConnection("GotOff", "Skiing", ConnectionType::FromPlace);
+
+  return model;
+}

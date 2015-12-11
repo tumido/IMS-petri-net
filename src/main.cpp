@@ -9,7 +9,7 @@
 #include "model.hpp"
 #include "simulation.hpp"
 #include "debug.hpp"
-#define YOLO 1
+#define YOLO 10
 
 using namespace std;
 
@@ -17,7 +17,8 @@ int main(int argc, char* argv[])
 {
   debug("main", "creating model");
   //Model * model = test::Model01();
-  Model * model = test::Model02();
+  //Model * model = test::Model02();
+  Model * model = test::Model03();
   debug("main", "validating model");
   model->SetupAndValidate();
 
