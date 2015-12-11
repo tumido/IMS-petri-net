@@ -6,31 +6,49 @@
 #ifndef __STATS_HPP__
 #define __STATS_HPP__
 
-#define COLUMN_LENGHT 30
+#define FIRST_COLUMN 40
+#define COLUMN_LENGHT 15
 
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 
 namespace Stats {
-    inline void PrintRow() {
-        std::cout  << " |\n";
+    inline unsigned int _PrintRow(int count) {
+        std::cout  << "|\n";
+        return ++count;
     }
 
     template <typename H, typename... T>
-    inline void PrintRow(H p, T... t) {
+    inline unsigned int _PrintRow(int count, H p, T... t) {
         std::ostringstream s;
-        s << "| "<< p;
+        if (std::is_same<H, double>::value)
+            s << "| " << std::fixed << std::setprecision(5) << p;
+        else
+            s << "| "<< p;
         std::string str = s.str();
         str.resize(COLUMN_LENGHT, ' ');
         std::cout << str;
-        PrintRow(t...);
+        return _PrintRow(++count, t...);
+    }
+
+    template <typename H, typename... T>
+    inline unsigned int PrintRow(H p, T... t) {
+        std::ostringstream s;
+        s << "| "<< p;
+        std::string str = s.str();
+        str.resize(FIRST_COLUMN, ' ');
+        std::cout << str;
+        return _PrintRow(0, t...);
     }
 
     template <typename H, typename... T>
     inline void PrintHeader(H p, T... t) {
         std::cout << '\n';
-        PrintRow(p, t...);
-        for (unsigned int i=0; i < COLUMN_LENGHT * 4; i++)
+        unsigned int cols = PrintRow(p, t...);
+        // compute the separator length
+        unsigned int sep_length = FIRST_COLUMN + (COLUMN_LENGHT* (cols-1)) + 1;
+        for (unsigned int i=0; i < sep_length; i++)
             std::cout << "-";
         std::cout  << "\n";
     }
