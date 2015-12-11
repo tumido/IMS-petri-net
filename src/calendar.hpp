@@ -9,7 +9,7 @@
 #include <vector>
 #include <set>
 #include "event.hpp"
-#include "debug.hpp"
+#include "stats.hpp"
 
 struct compare {
     bool operator() (const Event * first, const Event * second) const {
@@ -18,6 +18,10 @@ struct compare {
 };
 
 class Calendar {
+private:
+    int added;
+    int proceed;
+    int removed;
 public:
     std::multiset<Event *, compare> List;
     Calendar();
@@ -25,6 +29,9 @@ public:
     void AppendEvent(Event *);
     Event * GetEvent();
     bool Empty();
+    void IncRemoved() { this->removed++; };
+    void IncProceed() { this->proceed++; };
+    void PrintStats();
 };
 
 #endif // __CALENDAR_HPP__

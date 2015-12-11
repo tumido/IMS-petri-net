@@ -23,13 +23,15 @@ Calendar::~Calendar() {
 
 void Calendar::AppendEvent(Event * e) {
     this->List.insert(e);
+    this->added++;
     debug("calendar", "event added");
 }
 
 Event * Calendar::GetEvent() {
     Event * e = *(this->List.begin());
     this->List.erase(this->List.begin());
-    debug("calendar", "event removed");
+    this->proceed++;
+    debug("calendar", "event pop");
     return e;
 }
 
@@ -42,4 +44,8 @@ bool Calendar::Empty() {
         debug("calendar", "full of events");
         return false;
     }
+}
+
+void Calendar::PrintStats() {
+    
 }

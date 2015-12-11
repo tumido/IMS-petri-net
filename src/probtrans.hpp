@@ -9,7 +9,7 @@
 #include "place.hpp"
 #include "transition.hpp"
 #include "token.cpp"
-#include "debug.hpp"
+#include "stats.hpp"
 
 #include <vector>
 

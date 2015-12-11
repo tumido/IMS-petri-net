@@ -12,7 +12,7 @@
 #include "transition.hpp"
 #include "rand_gen.hpp"
 #include "probtrans.hpp"
-#include "debug.hpp"
+#include "stats.hpp"
 #include <vector>
 
 class Simulation {

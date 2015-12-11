@@ -156,7 +156,8 @@ void Simulation::PerformEvent(Event * event) {
         this->DiscardEvent(event);
         return;
     }
-
+    // increment the proceed events counter
+    this->calendar->IncProceed();
     // remove tokens from model and places
     std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++) {
@@ -182,6 +183,7 @@ void Simulation::DiscardEvent(Event * event) {
     for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++)
         (*token_it)->ClearPlanned();
     delete event;
+    this->calendar->IncRemoved();
     debug("simulator", "event discarded");
 }
 
@@ -189,8 +191,9 @@ void Simulation::CheckEvents() {
     debug("simulator", "checking planned events if doable");
     std::multiset<Event*, compare>::iterator event_it;
     for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
-        if (! (*event_it)->GetTransitionPtr()->IsFeasibleNow())
+        if (! (*event_it)->GetTransitionPtr()->IsFeasibleNow()) {
             this->DiscardEvent(*event_it);
+        }
     }
     debug("simulator", "check-up done");
 }

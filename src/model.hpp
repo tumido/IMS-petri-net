@@ -11,7 +11,7 @@
 #include "probtrans.hpp"
 #include "token.hpp"
 #include "transition.hpp"
-#include "debug.hpp"
+#include "stats.hpp"
 
 #include <algorithm>
 #include <cstddef>
