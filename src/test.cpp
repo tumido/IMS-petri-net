@@ -19,6 +19,7 @@ Model* test::Model01() {
   model->AddTransition("T4");
 
   model->AddConnection("P1", "T1", ConnectionType::ToPlace);
+  model->AddConnection("P1", "T2", ConnectionType::FromPlace);
   model->AddConnection("P3", "T2", ConnectionType::ToPlace);
   model->AddConnection("P3", "T3", ConnectionType::FromPlace);
   model->AddConnection("P2", "T3", ConnectionType::ToPlace);
