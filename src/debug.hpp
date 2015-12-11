@@ -6,8 +6,10 @@
 #ifndef __DEBUG_HPP__
 #define __DEBUG_HPP__
 
+#include <iostream>
+
 #ifdef DEBUG
-#define debug(caller, msg) { std::cout << "[" << (caller) << "]\t" << (msg) << std::endl;}
+#define debug(caller, msg) std::cout << "[" << (caller) << "]\t" << (msg) << std::endl
 #else
 #define debug(caller, msg)
 #endif

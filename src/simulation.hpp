@@ -27,6 +27,7 @@ public:
     void Start();
     void SetEndtime(double);
     void PlanEvents();
+    void PlanGenerators();
     double GetSimtime() { return simtime; };
     Event * CreateEvent(Transition * );
     void PerformEvent(Event *);

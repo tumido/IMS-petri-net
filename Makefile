@@ -2,7 +2,7 @@
 # Variables #
 #############
 CPP = g++
-CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g
+CPPFLAGS = -std=c++11 -fPIC -pedantic -Wall -Werror -g -D DEBUG
 NAME = ims_project
 
 BUILDDIR=build

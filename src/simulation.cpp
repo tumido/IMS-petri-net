@@ -23,6 +23,7 @@ void Simulation::Start() {
     this->simtime = 0;
 
     // initial planning
+    this->PlanGenerators();
     this->PlanEvents();
 
     // simulate
@@ -77,17 +78,42 @@ void Simulation::PlanEvents() {
     debug("simulation", "events planned");
 }
 
+void Simulation::PlanGenerators() {
+    debug("simulation", "planning generators");
+    std::vector<Transition*>::iterator gen_it;
+    std::vector<Transition*> gens = this->model->GetGenerators();
+    Event* event;
+    double time = this->simtime;
+
+    // get each generator
+    for(gen_it = gens.begin(); gen_it != gens.end(); gen_it++) {
+        // from the beginning of the universe until apocalypse
+        time = this->simtime;
+        while (time < this->endtime) {
+            // set time of event
+            if ((*gen_it)->Type == TransType::TimeConstant)
+                time = time + (*gen_it)->Value;
+            else
+                time = time + GenerateDelayExp((*gen_it)->Value);
+            // create and plan event
+            event = new Event(time, (*gen_it), new std::vector<Token*>);
+            this->calendar->AppendEvent(event);
+        }
+    }
+    debug("simulation", "generators planned");
+}
+
 Event * Simulation::CreateEvent(Transition * trans) {
     debug("simulator", "creating new event");
     //reserve tokens
     std::vector<Connection*>::iterator conn_it;
-    std::vector<Token*> tokens;
+    std::vector<Token*> * tokens = new std::vector<Token*>;
     Token * token;
     // for each input connection grab all tokens needed
     for (conn_it = trans->Inputs.begin(); conn_it != trans->Inputs.end(); conn_it++) {
         for (int i = 0; i < (*conn_it)->Capacity; i++) {
             token = (*conn_it)->Pl->GetToken();
-            tokens.push_back(token);
+            tokens->push_back(token);
             token->SetPlanned();
         }
     }
@@ -126,7 +152,7 @@ void Simulation::PerformEvent(Event * event) {
 
     // remove tokens from model and places
     std::vector<Token*>::iterator token_it;
-    for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++) {
+    for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++) {
         PopToken(*token_it);
     }
     // create new tokens and add them to outputs of the transition
@@ -146,7 +172,7 @@ void Simulation::PerformEvent(Event * event) {
 void Simulation::DiscardEvent(Event * event) {
     debug("simulator", "discarding event");
     std::vector<Token*>::iterator token_it;
-    for (token_it = event->Tokens.begin(); token_it != event->Tokens.end(); token_it++)
+    for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++)
         (*token_it)->ClearPlanned();
     delete event;
     debug("simulator", "event discarded");
