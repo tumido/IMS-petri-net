@@ -13,6 +13,7 @@
 #include "rand_gen.hpp"
 #include "probtrans.hpp"
 #include "debug.hpp"
+#include "stats.hpp"
 #include <vector>
 
 class Simulation {
@@ -34,6 +35,7 @@ public:
     void DiscardEvent(Event *);
     void CheckEvents();
     void PopToken(Token * t);
+    void PrintStats();
 };
 
 #endif // __SIMULATION_HPP__

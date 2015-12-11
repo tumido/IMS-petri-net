@@ -43,7 +43,6 @@ void Simulation::Start() {
         // plan newly available events
         this->PlanEvents();
     }
-    this->calendar->PrintStats();
     debug("simulation", "done");
 }
 void Simulation::SetEndtime(double t) {
@@ -197,4 +196,11 @@ void Simulation::CheckEvents() {
         }
     }
     debug("simulator", "check-up done");
+}
+void Simulation::PrintStats() {
+    Stats::PrintHeader("SIMULATION", "value");
+    Stats::PrintRow("Simulation time", this->simtime);
+    Stats::PrintRow("Simulation pre-set endtime", this->endtime);
+
+    this->calendar->PrintStats();
 }

@@ -7,6 +7,9 @@
 
 Calendar::Calendar() {
     //ctor
+    this->added = 0;
+    this->proceed = 0;
+    this->removed = 0;
 }
 
 Calendar::~Calendar() {
@@ -50,5 +53,5 @@ void Calendar::PrintStats() {
     Stats::PrintHeader("CALENDAR", "value");
     Stats::PrintRow("Total events added", this->added);
     Stats::PrintRow("Total events proceed", this->proceed);
-    Stats::PrintRow("Events removed ()", this->removed);
+    Stats::PrintRow("Events removed while checkup", this->removed);
 }

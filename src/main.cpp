@@ -29,4 +29,6 @@ int main(int argc, char* argv[])
   cout << "Running simulation..." << endl;
   simulation->Start();
   cout << "*Done*" << endl;
+
+  simulation->PrintStats();
 }
