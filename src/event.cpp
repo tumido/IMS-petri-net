@@ -19,6 +19,7 @@ Event::~Event() {
         delete *t;
     }
     Tokens->clear();
+    delete Tokens;
     debug("event", "destroyed");
 }
 

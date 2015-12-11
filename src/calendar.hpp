@@ -29,6 +29,7 @@ public:
     ~Calendar();
     void AppendEvent(Event *);
     Event * GetEvent();
+    void RemoveEvent(Event *);
     bool Empty();
     void IncRemoved() { this->removed++; };
     void IncProceed() { this->proceed++; };

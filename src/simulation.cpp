@@ -182,6 +182,7 @@ void Simulation::DiscardEvent(Event * event) {
     std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++)
         (*token_it)->ClearPlanned();
+    this->calendar->RemoveEvent(event);
     delete event;
     this->calendar->IncRemoved();
     debug("simulator", "event discarded");

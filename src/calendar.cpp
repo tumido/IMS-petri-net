@@ -49,6 +49,11 @@ bool Calendar::Empty() {
     }
 }
 
+void Calendar::RemoveEvent(Event * event) {
+    debug("calendar", 'removing event');
+    this->List.erase(List.find(event));
+ }
+
 void Calendar::PrintStats() {
     Stats::PrintHeader("CALENDAR", "value");
     Stats::PrintRow("Total events added", this->added);
