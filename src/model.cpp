@@ -141,6 +141,12 @@ void Model::AddToken(string pId)
   }
 }
 
+void Model::AddToken(string pId, unsigned int count)
+{
+  for (unsigned int i = 0; i < count; i++)
+    this->AddToken(pId);
+}
+
 ProbTrans* Model::findProbTransSameEntrance(Transition *tr)
 {
   debug("model", "searching for ProbTrans");

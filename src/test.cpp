@@ -140,5 +140,8 @@ Model* test::Model03() {
   model->AddConnection("GotOff", "TimeUp2", ConnectionType::ToPlace);
   model->AddConnection("GotOff", "Skiing", ConnectionType::FromPlace);
 
+  model->AddToken("Station");
+  model->AddToken("TBarPool", 40);
+
   return model;
 }

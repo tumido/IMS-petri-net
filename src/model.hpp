@@ -46,6 +46,7 @@ public:
   void AddPlace(string id);
   void AddPlace(string id, int capacity);
   void AddToken(string pId);
+  void AddToken(string pId, unsigned int count);
   void AddTransition(string id);
   void AddTransition(string id, int prob);
   void AddTransitionP(string id, int priority);
