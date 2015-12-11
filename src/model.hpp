@@ -26,6 +26,7 @@ private:
   std::vector<Token*> tokens;
   std::vector<Transition*> transitions;
   std::vector<Transition*> normaltrans;
+  std::vector<Transition*> prioritytrans;
   std::vector<Transition*> generators;
   std::vector<ProbTrans*> probstranses;
   int tokenId = 0;
