@@ -10,6 +10,7 @@
 
 namespace test {
   Model* Model01();
+  Model* Model02();
 } /*  */
 
 #endif // __TEST_HPP__
