@@ -27,10 +27,15 @@ void Simulation::Start() {
     this->PlanEvents();
 
     // simulate
-    while (!calendar->Empty() && (this->simtime < this->endtime)) {
+    while (!calendar->Empty()) {
         // get event from calendar and simulate the transition
         Event * e = calendar->GetEvent();
         this->simtime = e->GetTime();
+        //end simulation if endtime reached
+        if (this->simtime >= this->endtime) {
+            debug("simulation", "endtime reached");
+            break;
+        }
         // take action and make the transition
         this->PerformEvent(e);
         // check if events are feasible
@@ -142,7 +147,9 @@ void Simulation::PopToken(Token * t) {
 
 
 void Simulation::PerformEvent(Event * event) {
-    debug("simulator", "started processing event");
+    std::ostringstream s;
+    s << "[" << this->simtime << "] started processing event on transition: " << event->GetTransitionPtr()->Id;
+    debug("simulator", s.str());
     //check again if the event can be performed
     //input tokens are already reservated, but the output places could not have enough capacity
     if (! event->GetTransitionPtr()->IsFeasibleNow()) {

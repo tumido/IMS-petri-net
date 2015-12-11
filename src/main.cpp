@@ -9,7 +9,7 @@
 #include "model.hpp"
 #include "simulation.hpp"
 #include "debug.hpp"
-#define YOLO 6
+#define YOLO 1
 
 using namespace std;
 

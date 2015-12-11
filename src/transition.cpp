@@ -30,7 +30,6 @@ bool Transition::IsFeasibleNow() {
         if (! (*conn_it)->Pl->WillFit((*conn_it)->Capacity) )
             return false;
     }
-    debug("transition", "transition approved");
     return true;
 }
 
