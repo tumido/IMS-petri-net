@@ -13,7 +13,7 @@ Calendar::Calendar() {
 }
 
 Calendar::~Calendar() {
-    //dtor
+    //dtor, clean up left events
     debug("calendar", "destroying");
     std::multiset<Event *, compare>::iterator i;
 
@@ -24,12 +24,25 @@ Calendar::~Calendar() {
     debug("calendar", "destroyed");
 }
 
+/**
+ * Append event to calendar
+ *
+ * Func appends event to calendar's multiset (sorted by time) and increments
+ * statistics counter
+ * @param event Pointer to event that should be added to calendar
+ */
 void Calendar::AppendEvent(Event * e) {
     this->List.insert(e);
     this->added++;
     debug("calendar", "event added");
 }
 
+/**
+ * Get event from calendar
+ *
+ * Pop event from calendar (remove it from multiset) and inc counter
+ * @return event Event that has been popped from the calendar
+ */
 Event * Calendar::GetEvent() {
     Event * e = *(this->List.begin());
     this->List.erase(this->List.begin());
@@ -38,6 +51,11 @@ Event * Calendar::GetEvent() {
     return e;
 }
 
+/**
+ * Check if calendar is empty
+ *
+ * @return the status of calendar
+ */
 bool Calendar::Empty() {
     if (this->List.empty()) {
         debug("calendar", "is empty");
@@ -49,11 +67,22 @@ bool Calendar::Empty() {
     }
 }
 
+/**
+ * Remove event
+ *
+ * Same as GetEvent() but does not return the counter and leave the counter as is
+ * @param event Event that should be erased
+ */
 void Calendar::RemoveEvent(Event * event) {
     debug("calendar", 'removing event');
     this->List.erase(List.find(event));
- }
+}
 
+/**
+ * Print statistics
+ *
+ * Outputs statistical table containing values: added, removed and proceed count
+ */
 void Calendar::PrintStats() {
     Stats::PrintHeader("CALENDAR", "amount");
     Stats::PrintRow("Total events added", this->added);

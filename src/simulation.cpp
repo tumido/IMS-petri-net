@@ -14,6 +14,16 @@ Simulation::~Simulation() {
     delete calendar;
     delete model;
 }
+
+/**
+ * Run the simulation
+ *
+ * The core function of model simulation. Does the setup (inital planning of
+ * events, generators planning). Then iterates through the calendar and one by
+ * one process the events. After each event is proceed check if the rest of
+ * planned events are still feasible. Then it plans the newly available events.
+ * Iteration stops if the endtime is reached or the calendar is empty.
+ */
 void Simulation::Start() {
     debug("simulation", "starting");
     // randomize seed
@@ -46,10 +56,25 @@ void Simulation::Start() {
     }
     debug("simulation", "done");
 }
+
+/**
+ * Setting endtime
+ *
+ * Before the simulation run the endtime has to be set.
+ * @param endtime double number that defines the end time of simulation
+ */
 void Simulation::SetEndtime(double t) {
     this->endtime = t;
 }
 
+/**
+ * Plan events
+ *
+ * Looks for feasible transitions and transition groups (probability transitions).
+ * Takes each transition and checks it's feasibility. Is so, creates event and
+ * adds it to the calendar. The same it does for the probability transition. It
+ * rolls for probability, picks right transition.
+ */
 void Simulation::PlanEvents() {
     debug("simulation", "planning events");
     // normal transitions (priority, timed)
@@ -84,6 +109,18 @@ void Simulation::PlanEvents() {
     debug("simulation", "all events planned, done");
 }
 
+/**
+ * Planning of generators
+ *
+ * Generations are stored in separate vector in model. That's because generators
+ * should be planned before the simulation starts for whole simulation run time.
+ * For each generator it's creating events in the spacing defined by the
+ * generator's attributes (type: whether constant time or exponential
+ * distribution, value: time/mean) until the end time is reached. The setup
+ * presumes the first token is generated after the first transition time not at
+ * the start of simulation. It also plans one event more after the end time (this
+ * is for the purposes of checking if endtime is reached during the simulation run)
+ */
 void Simulation::PlanGenerators() {
     debug("simulation", "planning generators");
     std::vector<Transition*>::iterator gen_it;
@@ -111,6 +148,15 @@ void Simulation::PlanGenerators() {
     debug("simulation", "all generators planned, done");
 }
 
+/**
+ * Event creation
+ *
+ * Needs a pointer to transition that should be proceed. Each transition has
+ * input connections and these point to the places with tokens. These tokens are
+ * added to newly created vector and set as planned. Time for the event is set to
+ * current simulation time plus transition time (fixed or generated)
+ * @param trans Transition pointer
+ */
 Event * Simulation::CreateEvent(Transition * trans) {
     debug("simulator", "creating new event");
     //reserve tokens
@@ -140,6 +186,12 @@ Event * Simulation::CreateEvent(Transition * trans) {
     return event;
 }
 
+/**
+ * Delete token
+ *
+ * The function pop's the token from model, place and destroys it.
+ * @param t Tkoen that should be removed
+ */
 void Simulation::PopToken(Token * t) {
     debug("simulator", "removing token");
     this->model->RemoveToken(t);
@@ -149,6 +201,12 @@ void Simulation::PopToken(Token * t) {
     debug("simulator", "removed token");
 }
 
+/**
+ * Delete event
+ *
+ * Completely destroy event and it's properties (tokens)
+ * @param event that should be destroyed
+ */
 void Simulation::DeleteEvent(Event * event) {
     std::vector<Token *>::iterator t;
     for (t = event->Tokens->begin(); t != event->Tokens->end(); t++) {
@@ -158,6 +216,15 @@ void Simulation::DeleteEvent(Event * event) {
     delete event;
 }
 
+/**
+ * Perform event
+ *
+ * Processing the event. At first it checks if the transition is feasible at the
+ * time it should be proceed. It increments the counter of processed events,
+ * destroys all tokens on input places and adds new one to the output places
+ * (the amount is based on the connection capacity)
+ * @param event The event that should be proceed
+ */
 void Simulation::PerformEvent(Event * event) {
     std::ostringstream s;
     s << "[" << this->simtime << "] started processing event on transition: " << event->GetTransitionPtr()->Id;
@@ -189,6 +256,14 @@ void Simulation::PerformEvent(Event * event) {
     debug("simulator", "event proceed");
 }
 
+/**
+ * Discard event
+ *
+ * Remove the event from the calendar but instead of destroying the tokens it just
+ * clears the "planned" flag no tokens, increments the counter of removed tokens
+ * and deletes the event from memory.
+ * @param event Event that should be discarded
+ */
 void Simulation::DiscardEvent(Event * event) {
     debug("simulator", "discarding event");
     std::vector<Token*>::iterator token_it;
@@ -200,6 +275,12 @@ void Simulation::DiscardEvent(Event * event) {
     debug("simulator", "event discarded");
 }
 
+/**
+ * Check events
+ *
+ * Performs a checkup if all events in calendar are still doable. If not it
+ * discards them.
+ */
 void Simulation::CheckEvents() {
     debug("simulator", "checking planned events if doable");
     std::multiset<Event*, compare>::iterator event_it;
@@ -210,6 +291,12 @@ void Simulation::CheckEvents() {
     }
     debug("simulator", "check-up done");
 }
+
+/**
+ * Print statistics
+ *
+ * For simulation these statistics are printed: simtime and endtime
+ */
 void Simulation::PrintStats() {
     Stats::PrintHeader("SIMULATION", "value");
     Stats::PrintRow("Simulation time", this->simtime);
