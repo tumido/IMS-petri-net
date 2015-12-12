@@ -8,6 +8,7 @@
 #include <sstream>
 #include "test.hpp"
 #include "model.hpp"
+#include "signal.hpp"
 #include "simulation.hpp"
 #include "debug.hpp"
 #define YOLO 1000
@@ -16,6 +17,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+  SignalHandler::SetupHandlers();
   debug("main", "creating model");
   Model * model;
   double endtime = YOLO;
@@ -36,6 +38,7 @@ int main(int argc, char* argv[])
   if (argc > 2)
    istringstream (argv[2]) >> endtime;
 
+  SignalHandler::SetupModel(model);
 
   debug("main", "validating model");
   model->SetupAndValidate();
