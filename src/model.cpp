@@ -89,8 +89,9 @@ Transition* Model::findTransition(string id)
  * @param pId Place identifier
  * @param tId Transition identifier
  * @param type Type of the connection
+ * @param cap Capacity of the connection
  */
-void Model::AddConnection(string pId, string tId, ConnectionType type)
+void Model::AddConnection(string pId, string tId, ConnectionType type, int cap)
 {
   debug("model", "connects '" + pId + "' with '" + tId + "'");
   auto place = this->findPlace(pId);

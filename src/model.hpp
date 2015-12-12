@@ -43,7 +43,7 @@ private:
 
 public:
   ~Model();
-  void AddConnection(string pId, string tId, ConnectionType type);
+  void AddConnection(string pId, string tId, ConnectionType type, int cap = 1);
   void AddPlace(string id);
   void AddPlace(string id, int capacity);
   void AddToken(string pId);
