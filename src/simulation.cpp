@@ -293,7 +293,8 @@ void Simulation::CheckEvents() {
     debug("simulator", "checking planned events if doable");
     std::multiset<Event*, compare>::iterator event_it;
     for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
-        if (! (*event_it)->GetTransitionPtr()->IsFeasibleNow()) {
+        // dont check for generators planned long time ahead (generators have 0 inputs)
+        if ((*event_it)->GetTransitionPtr()->Inputs.size() != 0 && !(*event_it)->GetTransitionPtr()->IsFeasibleNow()) {
             this->DiscardEvent(*event_it);
         }
     }
