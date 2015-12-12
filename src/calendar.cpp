@@ -74,7 +74,7 @@ bool Calendar::Empty() {
  * @param event Event that should be erased
  */
 void Calendar::RemoveEvent(Event * event) {
-    debug("calendar", 'removing event');
+    debug("calendar", "removing event");
     this->List.erase(List.find(event));
 }
 
