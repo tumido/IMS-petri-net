@@ -34,6 +34,7 @@ public:
   void Apply(double timev);
   void PrintStatsPriority();
   void PrintStatsTimed();
+  void PrintStatsProbability(unsigned int group, unsigned int groupCount);
 };
 
 #endif // __TRANSITION_HPP__

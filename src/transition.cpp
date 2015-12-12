@@ -86,3 +86,8 @@ void Transition::PrintStatsTimed() {
     else if (Type == TransType::TimeGenerated)
         Stats::PrintRow( Id, "exp("+ std::to_string(Value) + ")", count, GetAverageTime());
 }
+void Transition::PrintStatsProbability(unsigned int group, unsigned int groupCount) {
+  if (Type == TransType::Probability) {
+    Stats::PrintRow( Id, ((double)count / groupCount) * 100, group, count, GetAverageTime());
+  }
+}

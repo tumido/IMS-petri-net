@@ -20,6 +20,8 @@ public:
   std::vector<Transition*> transitions;
   bool isValid();
   Transition* PickTransition(int);
+  void PrintStats();
+  unsigned int GetSum();
 };
 
 #endif // __PROBTRANS_HPP__

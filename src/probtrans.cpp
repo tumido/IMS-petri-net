@@ -39,3 +39,22 @@ Transition* ProbTrans::PickTransition(int roll)
   debug("probtrans", "transition picked");
   return tr;
 }
+
+/**
+ * Gets sum of all tokens that went throught
+ */
+unsigned int ProbTrans::GetSum()
+{
+  unsigned int sum = 0;
+  for (unsigned int i = 0; i < transitions.size(); i++) {
+    sum += transitions[i]->GetCount();
+  }
+  return sum;
+}
+
+void ProbTrans::PrintStats()
+{
+  auto count = GetSum();
+  for (unsigned int i = 0; i < transitions.size(); i++)
+    transitions[i]->PrintStatsProbability(i, count);
+}
