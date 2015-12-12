@@ -10,6 +10,7 @@
 #include "place.hpp"
 #include "token.hpp"
 #include "debug.hpp"
+#include "stats.hpp"
 
 #include <algorithm>
 #include <string>
@@ -20,7 +21,8 @@
 class Place : public Component {
 private:
   int freespots;
-  int max = 0;
+  unsigned int max = 0;
+  int visited = 0;
   std::vector<Token*> tokens;
 public:
   Place(std::string id) : Component(id) { };
@@ -37,6 +39,8 @@ public:
   bool AddToken(Token *);
   void RemoveToken(Token *);
   int GetMax() { return this->max; };
+  int GetVisited() { return this-> visited; }
+  void PrintStats();
 };
 
 #endif // __PLACE_HPP__

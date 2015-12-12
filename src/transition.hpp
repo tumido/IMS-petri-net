@@ -20,6 +20,8 @@ enum class TransType { TimeConstant, TimeGenerated, Priority, Probability };
 
 class Transition : public Component {
 private:
+  unsigned int count = 0;
+  double totalTime = 0;
 public:
   Transition(std::string id) : Component(id) { };
   int Value;
@@ -27,6 +29,10 @@ public:
   bool IsFeasible();
   bool IsFeasibleNow();
   Place* Input();
+  unsigned int GetCount() { return count; };
+  double GetAverageTime() { return totalTime / ((count > 0) ? count : 1); }
+  void Apply(double timev);
+  void PrintStats();
 };
 
 #endif // __TRANSITION_HPP__

@@ -113,6 +113,8 @@ bool Place::AddToken(Token *token)
     this->tokens.push_back(token);
     token->Location = this;
     debug("place", "token added");
+    this->visited++;
+    this->max = max < tokens.size() ? tokens.size() : max;
     return true;
   }
   return false;
@@ -131,4 +133,16 @@ void Place::RemoveToken(Token *token)
   std::ostringstream s;
   s << "tokens in place " << this->Id << ": " << tokens.size();
   debug("place", s.str());
+}
+
+/**
+ * Print statistics
+ *
+ * Outputs statistical table containing values: number of created and left tokens
+ */
+void Place::PrintStats() {
+    Stats::PrintHeader("PLACE " + this->Id, "amount");
+    Stats::PrintRow("Total ammount of tokens", this->visited);
+    Stats::PrintRow("Max ammount of tokens", this->max);
+    Stats::PrintRow("Tokens left in place", this->tokens.size());
 }

@@ -60,3 +60,24 @@ Place* Transition::Input()
     return this->Inputs[0]->Pl;
   }
 }
+
+/**
+ * Statistical function to track number of transition applications.
+ *
+ * @param timev Time to apply
+ */
+void Transition::Apply(double timev) {
+  totalTime += timev;
+  count++;
+}
+
+/**
+ * Print statistics
+ *
+ * Outputs statistical table containing values: number of created and left tokens
+ */
+void Transition::PrintStats() {
+    Stats::PrintHeader("TRANSITION " + Id, "value");
+    Stats::PrintRow("Number of transitions", count);
+    Stats::PrintRow("Average length", GetAverageTime());
+}

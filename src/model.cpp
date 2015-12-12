@@ -320,9 +320,9 @@ bool Model::SetupAndValidate()
 Token* Model::NewToken()
 {
   debug("model", "generating new token");
-  Token* token = new Token(this->tokenId);
-  this->tokenId++;
-  this->tokens.push_back(token);
+  Token* token = new Token(tokenId);
+  tokenId++;
+  tokens.push_back(token);
   return token;
 }
 
@@ -334,16 +334,22 @@ Token* Model::NewToken()
 void Model::RemoveToken(Token *token)
 {
   debug("model", "removing token");
-  this->tokens.erase(std::remove(tokens.begin(), tokens.end(), token), tokens.end());
+  tokens.erase(std::remove(tokens.begin(), tokens.end(), token), tokens.end());
 }
 
 /**
  * Print statistics
  *
- * Outputs statistical table containing values: added, removed and proceed count
+ * Outputs statistical table containing values: number of created and left tokens
  */
 void Model::PrintStats() {
     Stats::PrintHeader("MODEL", "amount");
-    Stats::PrintRow("Total tokens created", this->tokenId);
+    Stats::PrintRow("Number of tokens created", this->tokenId);
     Stats::PrintRow("Tokens left in model", this->tokens.size());
+    for (unsigned int i = 0; i < places.size(); i++) {
+      places[i]->PrintStats();
+    }
+    for (unsigned int i = 0; i < transitions.size(); i++) {
+      transitions[i]->PrintStats();
+    }
 }
