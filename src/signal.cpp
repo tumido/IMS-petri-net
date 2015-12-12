@@ -19,7 +19,6 @@ void SignalHandler::handler(int signum)
   debug("SignalHandler", "signal handled");
   if (SignalHandler::simulation != NULL) {
     simulation->PrintStats();
-    delete simulation;
   }
   exit(1);
 }
