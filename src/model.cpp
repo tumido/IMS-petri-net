@@ -346,9 +346,13 @@ void Model::PrintStats() {
     Stats::PrintHeader("MODEL", "amount");
     Stats::PrintRow("Number of tokens created", this->tokenId);
     Stats::PrintRow("Tokens left in model", this->tokens.size());
+
+    Stats::PrintHeader("PLACES", "tokens total", "max", "left");
     for (unsigned int i = 0; i < places.size(); i++) {
       places[i]->PrintStats();
     }
+
+    Stats::PrintHeader("TRANSITIONS", "proceed", "avg. time");
     for (unsigned int i = 0; i < transitions.size(); i++) {
       transitions[i]->PrintStats();
     }

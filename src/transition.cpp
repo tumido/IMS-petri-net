@@ -77,7 +77,5 @@ void Transition::Apply(double timev) {
  * Outputs statistical table containing values: number of created and left tokens
  */
 void Transition::PrintStats() {
-    Stats::PrintHeader("TRANSITION " + Id, "value");
-    Stats::PrintRow("Number of transitions", count);
-    Stats::PrintRow("Average length", GetAverageTime());
+    Stats::PrintRow( Id, count, GetAverageTime());
 }

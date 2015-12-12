@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
       model = test::Model03();
   }
   else {
-    // by default selec skiers lift model
+    // by default select skiers lift model
     model = test::Model03();
   }
   if (argc > 2)

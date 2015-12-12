@@ -128,6 +128,7 @@ void Simulation::PlanGenerators() {
     Event* event;
     double time = this->simtime;
     std::vector<Token*> * tokens;
+    double duration;
 
     // get each generator
     for(gen_it = gens.begin(); gen_it != gens.end(); gen_it++) {
@@ -136,12 +137,13 @@ void Simulation::PlanGenerators() {
         while (time < this->endtime) {
             // set time of event
             if ((*gen_it)->Type == TransType::TimeConstant)
-                time = time + (*gen_it)->Value;
+                duration = (*gen_it)->Value;
             else
-                time = time + GenerateDelayExp((*gen_it)->Value);
+                duration = GenerateDelayExp((*gen_it)->Value);
+            time = time + duration;
             // create and plan event
             tokens =  new std::vector<Token*>;
-            event = new Event(time, (*gen_it), tokens);
+            event = new Event(time, duration, (*gen_it), tokens);
             this->calendar->AppendEvent(event);
         }
     }
@@ -175,13 +177,15 @@ Event * Simulation::CreateEvent(Transition * trans) {
     //set time
     //default time is for instant transition TransType::Priority
     double time = this->simtime;
+    double duration = 0;
     if (trans->Type == TransType::TimeConstant) {
-        time = time + trans->Value;
+        duration = trans->Value;
     }
     else if (trans->Type == TransType::TimeGenerated) {
-        time = time + GenerateDelayExp(trans->Value);
+        duration = GenerateDelayExp(trans->Value);
     }
-    Event * event = new Event(time, trans, tokens);
+    time = time + duration;
+    Event * event = new Event(time, duration, trans, tokens);
     debug("simulator", "new event created");
     return event;
 }
@@ -237,6 +241,7 @@ void Simulation::PerformEvent(Event * event) {
     }
     // increment the proceed events counter
     this->calendar->IncProceed();
+    event->GetTransitionPtr()->Apply(event->GetDuration());
     // remove tokens from model and places
     std::vector<Token*>::iterator token_it;
     for (token_it = event->Tokens->begin(); token_it != event->Tokens->end(); token_it++) {

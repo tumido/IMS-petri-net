@@ -141,8 +141,5 @@ void Place::RemoveToken(Token *token)
  * Outputs statistical table containing values: number of created and left tokens
  */
 void Place::PrintStats() {
-    Stats::PrintHeader("PLACE " + this->Id, "amount");
-    Stats::PrintRow("Total ammount of tokens", this->visited);
-    Stats::PrintRow("Max ammount of tokens", this->max);
-    Stats::PrintRow("Tokens left in place", this->tokens.size());
+    Stats::PrintRow(this->Id, this->visited, this->max, this->tokens.size());
 }

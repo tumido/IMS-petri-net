@@ -15,11 +15,13 @@
 class Event {
 private:
     double time;
+    double duration;
     Transition * transition;
 public:
-    Event(double , Transition * , std::vector<Token *> *);
+    Event(double , double, Transition * , std::vector<Token *> *);
     ~Event();
     double GetTime() const { return this->time; };
+    double GetDuration() const { return this->duration; };
     Transition * GetTransitionPtr();
     void AddToken(Token *);
     std::vector<Token *> * Tokens;
