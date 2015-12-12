@@ -38,7 +38,6 @@ int main(int argc, char* argv[])
   if (argc > 2)
    istringstream (argv[2]) >> endtime;
 
-  SignalHandler::SetupModel(model);
 
   debug("main", "validating model");
   model->SetupAndValidate();
@@ -46,6 +45,8 @@ int main(int argc, char* argv[])
   debug("main", "preparing simulation");
   Simulation simulation = Simulation(model);
   simulation.SetEndtime(endtime);
+
+  SignalHandler::SetupSim(&simulation);
 
   cout << "Running simulation..." << endl;
   simulation.Start();

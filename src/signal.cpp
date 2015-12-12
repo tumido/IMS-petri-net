@@ -9,7 +9,7 @@
 /**
  * Model to print stats.
  */
-Model* SignalHandler::model = NULL;
+Simulation* SignalHandler::simulation = NULL;
 
 /**
  * Handles received signals.
@@ -17,22 +17,22 @@ Model* SignalHandler::model = NULL;
 void SignalHandler::handler(int signum)
 {
   debug("SignalHandler", "signal handled");
-  if (SignalHandler::model != NULL) {
-    model->PrintStats();
-    delete model;
+  if (SignalHandler::simulation != NULL) {
+    simulation->PrintStats();
+    delete simulation;
   }
   exit(1);
 }
 
 /**
- * Sets up model to print when handling.
+ * Sets up simulation to print when handling.
  *
- * @param model Model to watch
+ * @param simulation Model to watch
  */
-void SignalHandler::SetupModel(Model *model)
+void SignalHandler::SetupSim(Simulation *simulation)
 {
-  debug("SignalHandler", "setting up model for handling");
-  SignalHandler::model = model;
+  debug("SignalHandler", "setting up simulation for handling");
+  SignalHandler::simulation = simulation;
 }
 
 /**

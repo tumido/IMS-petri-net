@@ -15,6 +15,7 @@
 #include "debug.hpp"
 #include "stats.hpp"
 #include <vector>
+#include <iomanip>
 
 class Simulation {
 private:

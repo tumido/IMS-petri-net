@@ -41,6 +41,8 @@ void Simulation::Start() {
         // get event from calendar and simulate the transition
         Event * e = calendar->GetEvent();
         this->simtime = e->GetTime();
+        // print status
+        cout << "\rCurrent simulation time = " << fixed << setprecision(5) <<this->simtime;
         //end simulation if endtime reached
         if (this->simtime >= this->endtime) {
             DeleteEvent(e);
@@ -54,6 +56,7 @@ void Simulation::Start() {
         // plan newly available events
         this->PlanEvents();
     }
+    cout << "\n";
     debug("simulation", "done");
 }
 

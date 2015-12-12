@@ -7,7 +7,7 @@
 #define SIGNAL_HPP
 
 #include "debug.hpp"
-#include "model.hpp"
+#include "simulation.hpp"
 
 #include <iostream>
 #include <signal.h>
@@ -15,11 +15,11 @@
 
 class SignalHandler {
 private:
-  static Model* model;
+  static Simulation * simulation;
   static void handler(int signum);
 public:
   static void SetupHandlers();
-  static void SetupModel(Model *model);
+  static void SetupSim(Simulation * simulation);
 };
 
 #endif // SIGNAL_HPP
