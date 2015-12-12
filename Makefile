@@ -29,7 +29,7 @@ debug: CPPFLAGS += -D DEBUG
 debug: build $(NAME)
 
 run:
-	./$(NAME)
+	./$(NAME) skiers 1000
 
 # Phony #
 #########

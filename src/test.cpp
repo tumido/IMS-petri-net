@@ -10,7 +10,7 @@
  * Creates test model.
  */
 Model* test::Model01() {
-  auto model = new Model;
+  auto model = new Model("Simple");
   model->AddPlace("P1");
   model->AddPlace("P2");
   model->AddPlace("P3");
@@ -39,7 +39,7 @@ Model* test::Model01() {
  * Creates test model.
  */
 Model* test::Model02() {
-  auto model = new Model;
+  auto model = new Model("Complicated");
   model->AddPlace("P1");
   model->AddPlace("P2");
   model->AddPlace("P3");
@@ -91,7 +91,7 @@ Model* test::Model02() {
  * Creates test model.
  */
 Model* test::Model03() {
-  auto model = new Model;
+  auto model = new Model("Ski Lift");
 
   model->AddPlace("QueueNormal");
   model->AddPlace("QueueRacers");

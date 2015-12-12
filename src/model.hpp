@@ -31,6 +31,7 @@ private:
   std::vector<Transition*> generators;
   std::vector<ProbTrans*> probstranses;
   int tokenId = 0;
+  std::string name;
 
   bool existsConnection(string id);
   Connection* findConnection(string id);
@@ -43,6 +44,7 @@ private:
   void splitTransitions();
 
 public:
+  Model(std::string n): name(n) {};
   ~Model();
   void AddConnection(string pId, string tId, ConnectionType type, int cap = 1);
   void AddPlace(string id);
@@ -58,6 +60,7 @@ public:
   std::vector<Transition*> GetTransitions() { return this->normaltrans; };
   std::vector<ProbTrans*> GetProbGroups() { return this->probstranses; };
   std::vector<Transition*> GetGenerators() { return this->generators; };
+  std::string GetName() { return this->name; };
   Token* NewToken();
   void RemoveToken(Token *token);
   void PrintStats();

@@ -299,6 +299,7 @@ void Simulation::CheckEvents() {
  */
 void Simulation::PrintStats() {
     Stats::PrintHeader("SIMULATION", "value");
+    Stats::PrintRow("Model name", this->model->GetName());
     Stats::PrintRow("Simulation time", this->simtime);
     Stats::PrintRow("Simulation pre-set endtime", this->endtime);
 
