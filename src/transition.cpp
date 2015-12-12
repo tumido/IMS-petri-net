@@ -88,6 +88,8 @@ void Transition::PrintStatsTimed() {
 }
 void Transition::PrintStatsProbability(unsigned int group, unsigned int groupCount) {
   if (Type == TransType::Probability) {
-    Stats::PrintRow( Id, ((double)count / groupCount) * 100, group, count, GetAverageTime());
+    std::string pre_set = std::to_string(Value) + " %";
+    std::string real = std::to_string(((double)count / groupCount) * 100) + " %";
+    Stats::PrintRow( Id, "#" + std::to_string(group), pre_set, real, count, GetAverageTime());
   }
 }
