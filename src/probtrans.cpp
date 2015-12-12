@@ -52,9 +52,9 @@ unsigned int ProbTrans::GetSum()
   return sum;
 }
 
-void ProbTrans::PrintStats()
+void ProbTrans::PrintStats(unsigned int group)
 {
   auto count = GetSum();
   for (unsigned int i = 0; i < transitions.size(); i++)
-    transitions[i]->PrintStatsProbability(i, count);
+    transitions[i]->PrintStatsProbability(group, count);
 }

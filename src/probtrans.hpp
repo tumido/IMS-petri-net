@@ -20,7 +20,7 @@ public:
   std::vector<Transition*> transitions;
   bool isValid();
   Transition* PickTransition(int);
-  void PrintStats();
+  void PrintStats(unsigned int group);
   unsigned int GetSum();
 };
 

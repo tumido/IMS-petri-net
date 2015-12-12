@@ -386,6 +386,6 @@ void Model::PrintStats() {
 
     Stats::PrintHeader("TRANSITIONS (probability)", "probability", "group", "proceed", "avg. time");
     for (unsigned int i = 0; i < probstranses.size(); i++) {
-      probstranses[i]->PrintStats();
+      probstranses[i]->PrintStats(i);
     }
 }
