@@ -77,5 +77,10 @@ void Transition::Apply(double timev) {
  * Outputs statistical table containing values: number of created and left tokens
  */
 void Transition::PrintStats() {
-    Stats::PrintRow( Id, count, GetAverageTime());
+    if (Type == TransType::Priority)
+        Stats::PrintRow( Id, Value, "", count, GetAverageTime());
+    else if (Type == TransType::TimeConstant)
+        Stats::PrintRow( Id, "", Value, count, GetAverageTime());
+    else
+        Stats::PrintRow( Id, "", "exp("+ std::to_string(Value) + ")", count, GetAverageTime());
 }

@@ -131,6 +131,7 @@ void Place::RemoveToken(Token *token)
   tokens.erase(std::remove(tokens.begin(), tokens.end(), token));
   token->Location = NULL;
   std::ostringstream s;
+    this->min = min > tokens.size() ? tokens.size() : min;
   s << "tokens in place " << this->Id << ": " << tokens.size();
   debug("place", s.str());
 }
@@ -141,5 +142,5 @@ void Place::RemoveToken(Token *token)
  * Outputs statistical table containing values: number of created and left tokens
  */
 void Place::PrintStats() {
-    Stats::PrintRow(this->Id, this->visited, this->max, this->tokens.size());
+    Stats::PrintRow(this->Id, this->visited, this->max, this->min, this->tokens.size());
 }

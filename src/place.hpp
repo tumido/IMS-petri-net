@@ -22,6 +22,7 @@ class Place : public Component {
 private:
   int freespots;
   unsigned int max = 0;
+  unsigned int min = MAX_CAPACITY;
   int visited = 0;
   std::vector<Token*> tokens;
 public:
@@ -39,6 +40,7 @@ public:
   bool AddToken(Token *);
   void RemoveToken(Token *);
   int GetMax() { return this->max; };
+  int GetMin() { return this->min; };
   int GetVisited() { return this-> visited; }
   void PrintStats();
 };
