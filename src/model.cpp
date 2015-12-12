@@ -305,13 +305,35 @@ void Model::splitTransitions()
 }
 
 /**
+ * Checks whether model is valid
+ */
+bool Model::validateModel()
+{
+  debug("Model", "validating model");
+  debug("Model", "validating places");
+  for (unsigned int i = 0; i < places.size(); i++) {
+    if (!places[i]->isValid())
+      return false;
+  }
+  debug("Model", "places valid");
+  debug("Model", "validating probability transitions");
+  for (unsigned int i = 0; i < probstranses.size(); i++) {
+    if (!probstranses[i]->isValid())
+      return false;
+  }
+  debug("Model", "probability transitions valid");
+  debug("Model", "model valid");
+  return true;
+}
+
+/**
  * Sets up and validates model to be preapared for simulation.
  */
 bool Model::SetupAndValidate()
 {
   debug("model", "setting up model");
-  this->splitTransitions();
-  return true;
+  splitTransitions();
+  return validateModel();
 }
 
 /**
