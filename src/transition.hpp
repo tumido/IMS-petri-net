@@ -32,7 +32,8 @@ public:
   unsigned int GetCount() { return count; };
   double GetAverageTime() { return totalTime / ((count > 0) ? count : 1); }
   void Apply(double timev);
-  void PrintStats();
+  void PrintStatsPriority();
+  void PrintStatsTimed();
 };
 
 #endif // __TRANSITION_HPP__

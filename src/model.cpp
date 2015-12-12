@@ -374,8 +374,13 @@ void Model::PrintStats() {
       places[i]->PrintStats();
     }
 
-    Stats::PrintHeader("TRANSITIONS", "priority", "delay", "proceed", "avg. time");
+    Stats::PrintHeader("TRANSITIONS (priority)", "priority", "proceed", "avg. time");
     for (unsigned int i = 0; i < transitions.size(); i++) {
-      transitions[i]->PrintStats();
+      transitions[i]->PrintStatsPriority();
+    }
+
+    Stats::PrintHeader("TRANSITIONS (time delay)", "delay", "proceed", "avg. time");
+    for (unsigned int i = 0; i < transitions.size(); i++) {
+      transitions[i]->PrintStatsTimed();
     }
 }
