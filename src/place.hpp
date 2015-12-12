@@ -20,6 +20,7 @@
 class Place : public Component {
 private:
   int freespots;
+  int max = 0;
   std::vector<Token*> tokens;
 public:
   Place(std::string id) : Component(id) { };
@@ -35,6 +36,7 @@ public:
   Token * GetToken();
   bool AddToken(Token *);
   void RemoveToken(Token *);
+  int GetMax() { return this->max; };
 };
 
 #endif // __PLACE_HPP__

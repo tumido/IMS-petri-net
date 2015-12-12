@@ -12,6 +12,7 @@
 #include "token.hpp"
 #include "transition.hpp"
 #include "debug.hpp"
+#include "stats.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -59,6 +60,7 @@ public:
   std::vector<Transition*> GetGenerators() { return this->generators; };
   Token* NewToken();
   void RemoveToken(Token *token);
+  void PrintStats();
 };
 
 #endif // __MODEL_HPP__

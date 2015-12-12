@@ -303,4 +303,5 @@ void Simulation::PrintStats() {
     Stats::PrintRow("Simulation pre-set endtime", this->endtime);
 
     this->calendar->PrintStats();
+    this->model->PrintStats();
 }

@@ -336,3 +336,14 @@ void Model::RemoveToken(Token *token)
   debug("model", "removing token");
   this->tokens.erase(std::remove(tokens.begin(), tokens.end(), token), tokens.end());
 }
+
+/**
+ * Print statistics
+ *
+ * Outputs statistical table containing values: added, removed and proceed count
+ */
+void Model::PrintStats() {
+    Stats::PrintHeader("MODEL", "amount");
+    Stats::PrintRow("Total tokens created", this->tokenId);
+    Stats::PrintRow("Tokens left in model", this->tokens.size());
+}
