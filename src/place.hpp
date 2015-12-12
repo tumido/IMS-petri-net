@@ -30,6 +30,7 @@ public:
   int GetFreeCount();
   int GetCount();
   bool isFree();
+  bool isValid();
   bool isUnlimited();
   bool WillFit(int);
   void LeavePlace();

@@ -6,6 +6,8 @@
 
 #include "place.hpp"
 
+#include "transition.hpp"
+
 /**
  * Sets capacity of the place.
  */
@@ -30,6 +32,25 @@ int Place::GetFreeCount()
 bool Place::isFree()
 {
   return this->isUnlimited() || this->freespots > 0;
+}
+
+/**
+ * Checks whether place is valid depending on it's outputs
+ */
+bool Place::isValid()
+{
+  TransType prev_type;
+  TransType curr_type;
+
+  if (Outputs.size() > 0)
+    prev_type = Outputs[0]->Tr->Type;
+
+  for (unsigned int i = 1; i < Outputs.size(); i++) {
+    curr_type = Outputs[i]->Tr->Type;
+    if (prev_type != curr_type)
+      return false;
+  }
+  return true;
 }
 
 /**

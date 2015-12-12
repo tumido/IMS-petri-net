@@ -42,6 +42,7 @@ private:
   ProbTrans* findProbTransSameEntrance(Transition *tr);
   void assignProbTrans(Transition *tr);
   void splitTransitions();
+  bool validateModel();
 
 public:
   Model(std::string n): name(n) {};
