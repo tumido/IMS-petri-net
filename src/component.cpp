@@ -6,6 +6,9 @@
 
 #include "component.hpp"
 
+/**
+ * Component constructor
+ */
 Component::Component(std::string id)
 {
   this->Id = id;

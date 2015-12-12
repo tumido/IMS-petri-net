@@ -6,6 +6,9 @@
 
 #include "test.hpp"
 
+/**
+ * Creates test model.
+ */
 Model* test::Model01() {
   auto model = new Model;
   model->AddPlace("P1");
@@ -32,6 +35,9 @@ Model* test::Model01() {
   return model;
 }
 
+/**
+ * Creates test model.
+ */
 Model* test::Model02() {
   auto model = new Model;
   model->AddPlace("P1");
@@ -81,6 +87,9 @@ Model* test::Model02() {
   return model;
 }
 
+/**
+ * Creates test model.
+ */
 Model* test::Model03() {
   auto model = new Model;
 

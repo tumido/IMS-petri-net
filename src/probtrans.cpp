@@ -6,6 +6,9 @@
 
 #include "probtrans.hpp"
 
+/**
+ * Check if the structure is valid.
+ */
 bool ProbTrans::isValid()
 {
   auto sum = 0;
@@ -15,6 +18,11 @@ bool ProbTrans::isValid()
   return sum == 100;
 }
 
+/**
+ * Chooses one of the transition.
+ *
+ * @param roll Value to pick a transition.
+ */
 Transition* ProbTrans::PickTransition(int roll)
 {
   debug("probtrans", "picking transition");

@@ -6,6 +6,9 @@
 
 #include "model.hpp"
 
+/**
+ * Destructor
+ */
 Model::~Model()
 {
   for (unsigned int i = 0; i < this->connections.size(); i++)
@@ -24,12 +27,22 @@ Model::~Model()
     delete this->probstranses[i];
 }
 
+/**
+ * Checks if specified place exists
+ *
+ * @param id Place identifier
+ */
 bool Model::existsPlace(string id)
 {
   debug("model", "checks if place with id '" + id + "' exists");
   return this->findPlace(id) != NULL;
 }
 
+/**
+ * Finds place with specified id
+ *
+ * @param id Place identifier
+ */
 Place* Model::findPlace(string id)
 {
   debug("model", "searches for place with id '" + id + "'");
@@ -43,12 +56,20 @@ Place* Model::findPlace(string id)
   return NULL;
 }
 
+/**
+ * Checks if specified transition exists
+ *
+ * @param id Transition identifier
+ */
 bool Model::existsTransition(string id)
 {
   debug("model", "checks if transition with id '" + id + "' exists");
   return this->findTransition(id) != NULL;
 }
 
+/**
+ * Finds transition with specified id
+ */
 Transition* Model::findTransition(string id)
 {
   debug("model", "searches for transition with id '" + id + "'");
@@ -62,6 +83,13 @@ Transition* Model::findTransition(string id)
   return NULL;
 }
 
+/**
+ * Connects place with transition
+ *
+ * @param pId Place identifier
+ * @param tId Transition identifier
+ * @param type Type of the connection
+ */
 void Model::AddConnection(string pId, string tId, ConnectionType type)
 {
   debug("model", "connects '" + pId + "' with '" + tId + "'");
@@ -87,12 +115,23 @@ void Model::AddConnection(string pId, string tId, ConnectionType type)
   }
 }
 
+/**
+ * Adds place with unlimited capacity to the model
+ *
+ * @param id Place identifier
+ */
 void Model::AddPlace(string id)
 {
   debug("model", "added new place with unlimited capacity");
   this->AddPlace(id, 0);
 }
 
+/**
+ * Adds place with specified capacity to the model
+ *
+ * @param id Place identifier
+ * @param capacity Capacity of the place
+ */
 void Model::AddPlace(string id, int capacity)
 {
   debug("model", "added new place with capacity");
@@ -103,12 +142,23 @@ void Model::AddPlace(string id, int capacity)
   }
 }
 
+/**
+ * Adds transition to the model
+ *
+ * @param id Transiton identifier
+ */
 void Model::AddTransition(string id)
 {
   debug("model", "added new transitions");
   this->AddTransitionP(id, 0);
 }
 
+/**
+ * Adds probability transition to the model
+ *
+ * @param id Transition identifier
+ * @param prob Probability value
+ */
 void Model::AddTransition(string id, int prob)
 {
   if (!this->existsTransition(id)) {
@@ -122,6 +172,12 @@ void Model::AddTransition(string id, int prob)
   }
 }
 
+/**
+ * Adds priority transition to the model
+ *
+ * @param id Place identifier
+ * @param priority Priority of the transition
+ */
 void Model::AddTransitionP(string id, int priority)
 {
   if (!this->existsTransition(id)) {
@@ -135,6 +191,13 @@ void Model::AddTransitionP(string id, int priority)
   }
 }
 
+/**
+ * Adds timed transition to the model
+ *
+ * @param id Transition identifier
+ * @param timec Time value
+ * @param type Type of the transition
+ */
 void Model::AddTransition(string id, int timec, TransType type)
 {
   if (!this->existsTransition(id)) {
@@ -148,6 +211,11 @@ void Model::AddTransition(string id, int timec, TransType type)
   }
 }
 
+/**
+ * Adds new token to the place
+ *
+ * @param pId Place identifier
+ */
 void Model::AddToken(string pId)
 {
   auto place = this->findPlace(pId);
@@ -159,12 +227,23 @@ void Model::AddToken(string pId)
   }
 }
 
+/**
+ * Adds specific number of tokens to the place
+ *
+ * @param pId Place identifier
+ * @param count Number of tokens
+ */
 void Model::AddToken(string pId, unsigned int count)
 {
   for (unsigned int i = 0; i < count; i++)
     this->AddToken(pId);
 }
 
+/**
+ * Searches for ProbTrans that contains specific Transiton
+ *
+ * @param tr Specific transition
+ */
 ProbTrans* Model::findProbTransSameEntrance(Transition *tr)
 {
   debug("model", "searching for ProbTrans");
@@ -180,6 +259,11 @@ ProbTrans* Model::findProbTransSameEntrance(Transition *tr)
   return prtr;
 }
 
+/**
+ * Adds Transition to the same group of probability transitions
+ *
+ * @param tr Transition to be added
+ */
 void Model::assignProbTrans(Transition *tr)
 {
   auto prtr = this->findProbTransSameEntrance(tr);
@@ -195,6 +279,9 @@ void Model::assignProbTrans(Transition *tr)
   }
 }
 
+/**
+ * Splits transitions to multiple vectors by their category
+ */
 void Model::splitTransitions()
 {
   debug("model", "splitting transitions to different groups");
@@ -216,6 +303,9 @@ void Model::splitTransitions()
   }
 }
 
+/**
+ * Sets up and validates model to be preapared for simulation.
+ */
 bool Model::SetupAndValidate()
 {
   debug("model", "setting up model");
@@ -223,6 +313,9 @@ bool Model::SetupAndValidate()
   return true;
 }
 
+/**
+ * Generates new token.
+ */
 Token* Model::NewToken()
 {
   debug("model", "generating new token");
@@ -232,6 +325,11 @@ Token* Model::NewToken()
   return token;
 }
 
+/**
+ * Removes token from the model.
+ *
+ * @param token Token to be removed
+ */
 void Model::RemoveToken(Token *token)
 {
   debug("model", "removing token");
