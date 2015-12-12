@@ -21,8 +21,8 @@ class Simulation {
 private:
     Calendar * calendar;
     Model * model;
-    double simtime;
-    double endtime;
+    double simtime = 0;
+    double endtime = 0;
 public:
     Simulation(Model *);
     ~Simulation();

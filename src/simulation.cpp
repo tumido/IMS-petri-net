@@ -12,7 +12,8 @@ Simulation::Simulation(Model *m): model(m) {
 }
 Simulation::~Simulation() {
     delete calendar;
-    delete model;
+    if (model != NULL)
+        delete model;
 }
 
 /**
@@ -294,7 +295,7 @@ void Simulation::CheckEvents() {
     std::multiset<Event*, compare>::iterator event_it;
     for (event_it = this->calendar->List.begin(); event_it != this->calendar->List.end(); event_it++) {
         // dont check for generators planned long time ahead (generators have 0 inputs)
-        if ((*event_it)->GetTransitionPtr()->Inputs.size() != 0 && !(*event_it)->GetTransitionPtr()->IsFeasibleNow()) {
+        if ((*event_it)->Tokens->size() != 0 && !(*event_it)->GetTransitionPtr()->IsFeasibleNow()) {
             this->DiscardEvent(*event_it);
         }
     }
@@ -313,5 +314,6 @@ void Simulation::PrintStats() {
     Stats::PrintRow("Simulation pre-set endtime", this->endtime);
 
     this->calendar->PrintStats();
-    this->model->PrintStats();
+    if (model != NULL)
+        this->model->PrintStats();
 }
