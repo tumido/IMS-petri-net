@@ -20,6 +20,7 @@ void SignalHandler::handler(int signum)
   if (SignalHandler::simulation != NULL) {
     simulation->PrintStats();
   }
+  delete simulation;
   exit(1);
 }
 

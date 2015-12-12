@@ -43,15 +43,16 @@ int main(int argc, char* argv[])
   model->SetupAndValidate();
 
   debug("main", "preparing simulation");
-  Simulation simulation = Simulation(model);
-  simulation.SetEndtime(endtime);
+  Simulation * simulation = new Simulation(model);
+  simulation->SetEndtime(endtime);
 
-  SignalHandler::SetupSim(&simulation);
+  SignalHandler::SetupSim(simulation);
 
   cout << "Running simulation..." << endl;
-  simulation.Start();
+  simulation->Start();
   cout << "*Done*" << endl;
 
-  simulation.PrintStats();
+  simulation->PrintStats();
+  delete simulation;
   return EXIT_SUCCESS;
 }
