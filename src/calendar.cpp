@@ -46,7 +46,6 @@ void Calendar::AppendEvent(Event * e) {
 Event * Calendar::GetEvent() {
     Event * e = *(this->List.begin());
     this->List.erase(this->List.begin());
-    this->proceed++;
     debug("calendar", "event pop");
     return e;
 }
