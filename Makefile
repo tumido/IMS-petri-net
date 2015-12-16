@@ -41,4 +41,4 @@ clean:
 	-rm -rf $(NAME) $(ARCHIVE_NAME) $(BUILDDIR)
 
 pack:
-	tar cfz $(ARCHIVE_NAME) $(SRCS) $(HDRS) Makefile
+	tar cfz $(ARCHIVE_NAME) $(SRCS) $(HDRS) Makefile dokumentace.pdf
